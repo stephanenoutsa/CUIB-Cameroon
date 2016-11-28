@@ -1,0 +1,207 @@
+<resources>
+    <string name="app_name">CUIB-Cameroon</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Start of FlashScreen activity literature -->
+    <string name="school_name"><b>Catholic University Institute of Buea</b></string>
+    <string name="acronym">(CUIB)</string>
+    <string name="school_motto"><i>The Entrepreneurial University</i></string>
+    <!-- End of FlashScreen activity literature -->
+
+    <!-- Start of Home activity literature -->
+    <string name="title_activity_home">Home</string>
+    <string name="icon_desc">Icon</string>
+    <string name="about_label">About</string>
+    <string name="about_url">http://www.cuib-cameroon.org/home.php?m=2</string>
+    <string name="academics_label">Academics</string>
+    <string name="academics_url">http://www.cuib-cameroon.org/home.php?m=3</string>
+    <string name="admission_label">Admission</string>
+    <string name="admission_url">http://www.cuib-cameroon.org/home.php?m=5</string>
+    <string name="enp_label">Innovation</string>
+    <string name="enp_url">http://www.cuib-cameroon.org/hpage.php?id=26</string>
+    <string name="campus_label">Campus Life</string>
+    <string name="campus_url">http://www.cuib-cameroon.org/home.php?m=4</string>
+    <string name="sports_label">Sports Academy</string>
+    <string name="sports_url">http://www.cuib-cameroon.org/hpage.php?id=76</string>
+    <string name="partners_label">Our Partners</string>
+    <string name="partners_url">http://www.cuib-cameroon.org/home.php?m=130</string>
+    <string name="donate_label">Give to CUIB</string>
+    <string name="donate_url">http://www.cuib-cameroon.org/home.php?m=128</string>
+    <string name="contact_label">Contact</string>
+    <string name="contact_url">http://www.cuib-cameroon.org/contacts.php</string>
+    <string name="exit_title">Exit</string>
+    <string name="exit_message">Do you want to exit the application?</string>
+    <!-- End of Home activity literature -->
+
+    <!-- Start of navigation drawer literature -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_curriculum">Curriculum</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_payments">Payments</string>
+    <string name="nav_account">Account</string>
+    <!-- End of navigation drawer literature -->
+
+    <!-- Start of JoinUs activity literature -->
+    <string name="title_activity_join_us">Join Us</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="skip"><u>Skip?</u></string>
+    <string name="skip_title">Warning</string>
+    <string name="skip_message" formatted="false">
+        If you are a student, you won\'t be able to retrieve your personal information (results, timetable,
+        etc).\n
+        Proceed?
+    </string>
+    <!-- End of JoinUs activity literature -->
+
+    <!-- Start of SignUp activity literature -->
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="email_label"><b>Email Address:</b></string>
+    <string name="email_hint">Enter email here</string>
+    <string name="phone_label"><b>Phone Number:</b></string>
+    <string name="phone_hint">Enter phone number here</string>
+    <string name="dob_label"><b>Date of Birth:</b></string>
+    <string name="dob_hint">Enter date of birth here</string>
+    <string name="gender_label"><b>Gender:</b></string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_other">Other</string>
+    <string name="password_label"><b>Password:</b></string>
+    <string name="password_hint">8 characters minimum</string>
+    <string name="confirm_label"><b>Confirm Password:</b></string>
+    <string name="confirm_hint">Confirm password</string>
+    <string name="create_account">Subscribe</string>
+    <string name="email_invalid">Invalid email address</string>
+    <string name="phone_invalid">Invalid phone number</string>
+    <string name="dob_invalid">Invalid date of birth</string>
+    <string name="gender_invalid">You must choose a gender</string>
+    <string name="password_invalid">Invalid password</string>
+    <string name="confirm_invalid">Passwords don\'t match</string>
+    <string name="check_failed">Couldn\'t perform operation. Please try again later</string>
+    <string name="network_error">Couldn\'t establish communication with server. Please try again later</string>
+    <string name="user_exists" formatted="false">
+        An account with the details you provided already exists. Please login to your account or create
+        a new account.
+    </string>
+    <string name="server_failure">The remote end hung up unexpectedly. Please try again later</string>
+    <string name="no_network">Please connect to a network and try again</string>
+    <!-- End of SignUp activity literature -->
+
+    <!-- Start of LoginType activity literature -->
+    <string name="title_activity_login_type">Login Type</string>
+    <string name="student_login">Student Login</string>
+    <string name="subscriber_login">Subscriber Login</string>
+    <string name="login_note" formatted="false">
+        <i>You only need to do this step once.</i>
+    </string>
+    <!-- End of LoginType activity literature -->
+
+    <!-- Start of StudentLogin activity literature -->
+    <string name="title_activity_student_login">Student Login</string>
+    <string name="matricule_label"><b>Matricule:</b></string>
+    <string name="matricule_hint">Enter your matricule number</string>
+    <string name="login_pw_hint">Enter your password</string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="empty_field">Field cannot be empty</string>
+    <string name="student_wrong_credentials">Matricule or password incorrect</string>
+    <!-- End of StudentLogin activity literature -->
+
+    <!-- Start of SubscriberLogin activity literature -->
+    <string name="title_activity_subscriber_login">Subscriber Login</string>
+    <string name="user_wrong_credentials">Email or password incorrect</string>
+    <!-- End of SubscriberLogin activity literature -->
+
+    <!-- Start of MyAccount activity literature -->
+    <string name="title_activity_my_account">User Account</string>
+    <string name="update">Update</string>
+    <string name="user_added">Account created</string>
+    <string name="user_updated">Account updated</string>
+    <string name="already_subscribed">Click <u>here</u> if you already have an account.</string>
+    <!-- End of MyAccount activity literature -->
+
+    <!-- Start of StudentAccount activity literature -->
+    <string name="title_activity_student_account">Student Account</string>
+    <string name="logout_label"><u>Logout</u></string>
+    <string name="name_label"><b>Name:</b></string>
+    <string name="name_field">Student name</string>
+    <string name="matricule_field">Student matricule</string>
+    <string name="enrolled_label"><b>Enrollment Year:</b></string>
+    <string name="enrolled_field">Student enrollment year</string>
+    <string name="level_label"><b>Level:</b></string>
+    <string name="level_field">Student level</string>
+    <string name="school_label"><b>School:</b></string>
+    <string name="school_field">Student school</string>
+    <string name="dept_label"><b>Department:</b></string>
+    <string name="dept_field">Student department</string>
+    <string name="email_field">Student email</string>
+    <string name="phone_field">Student phone number</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Do you really want to logout?</string>
+    <!-- End of StudentAccount activity literature -->
+
+    <!-- Start of Curriculum activity literature -->
+    <string name="title_activity_curriculum">Curriculum</string>
+    <string name="not_student">You must be logged in as a student to access this page!</string>
+    <string name="btn_timetable">My Timetable</string>
+    <string name="btn_courses">My Courses</string>
+    <string name="btn_lecturers">My Lecturers</string>
+    <string name="btn_results">My Results</string>
+    <!-- End of Curriculum activity literature -->
+
+    <!-- Start of Timetable activity literature -->
+    <string name="title_activity_timetable">Timetable</string>
+    <string name="tt_download_title">Timetable</string>
+    <string name="tt_download_desc">Timetable downloading</string>
+    <string name="tt_filename">timetable.png</string>
+    <string name="download_text"><i>Click on the image to save it to your device</i></string>
+    <string name="tt_content_desc">Timetable Image</string>
+    <string name="load_failed">Failed to load image</string>
+    <string name="no_timetable">The requested resource is not available</string>
+    <!-- End of Timetable activity literature -->
+
+    <!-- Start of Courses activity literature -->
+    <string name="title_activity_courses">Courses</string>
+    <string name="no_courses">No courses available</string>
+    <string name="course_code_placeholder">Course Code</string>
+    <string name="course_title_placeholder">Course Title</string>
+    <string name="course_desc_placeholder">Course Description</string>
+    <!-- End of Courses activity literature -->
+
+    <!-- Start of Lecturers activity literature -->
+    <string name="title_activity_lecturers">Lecturers</string>
+    <string name="lect_name_placeholder"><b>Lecturer Name</b></string>
+    <string name="lect_bio_placeholder">Lecturer biography</string>
+    <!-- End of Lecturers activity literature -->
+
+    <!-- Start of Messages activity literature -->
+    <string name="title_activity_messages">Messages</string>
+    <string name="msg_sender_placeholder"><i>Catholic University Institute of Buea</i></string>
+    <string name="msg_title_placeholder"><b>Title Placeholder</b></string>
+    <string name="msg_time_placeholder">24/11/2016 15:02 PM</string>
+    <string name="msg_body_placeholder">This is a placeholder for the body of the message.</string>
+    <string name="no_messages">You have no messages</string>
+    <string name="delete_title">Delete</string>
+    <string name="delete_msg">You are about to delete this message</string>
+    <string name="delete_ok">OK</string>
+    <string name="delete_cancel">Cancel</string>
+    <string name="token_saved">Token saved successfully</string>
+    <!-- End of Messages activity literature -->
+
+    <!-- Start of SingleMessage activity literature -->
+    <string name="title_activity_single_message">Message</string>
+    <!-- End of SingleMessage activity literature -->
+
+    <!-- Start of URLDisplay activity literature -->
+    <string name="title_activity_urldisplay">CUIB</string>
+    <!-- End of URLDisplay activity literature -->
+
+    <!-- Start of SingleCourse activity literature -->
+    <string name="title_activity_single_course">Course</string>
+    <!-- End of SingleCourse activity literature -->
+
+    <!-- Start of SingleLecturer activity literature -->
+    <string name="title_activity_single_lecturer">Lecturer</string>
+    <!-- End of SingleLecturer activity literature -->
+</resources>

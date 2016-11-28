@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1079788435494",
+    "firebase_url": "https://cuib-cameroon.firebaseio.com",
+    "project_id": "cuib-cameroon",
+    "storage_bucket": "cuib-cameroon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079788435494:android:412f96041d3204a1",
+        "android_client_info": {
+          "package_name": "com.stephnoutsa.cuib"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079788435494-cllm6nn6najjl2ueh391ftp81llb8sdd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stephnoutsa.cuib",
+            "certificate_hash": "A97FDD2407F8897A36E898BFED6D4A6E6E3BC213"
+          }
+        },
+        {
+          "client_id": "1079788435494-jschesfs62bo56vafbh8qvlittanubf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL3sPBaYOcP082HccwsKNNsXnVNaaCmI4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079788435494-jschesfs62bo56vafbh8qvlittanubf4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
