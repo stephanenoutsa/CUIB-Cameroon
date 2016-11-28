@@ -31,12 +31,10 @@ public class SignUp extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-    User newUser;
     TextView emailLabel, phoneLabel, dobLabel, genderLabel, passwordLabel, confirmLabel;
     EditText emailField, phoneField, dobField, passwordField, confirmField;
     String email, phone, dob, gender, password, cPassword;
     RadioButton male, female, other;
-    boolean exists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
