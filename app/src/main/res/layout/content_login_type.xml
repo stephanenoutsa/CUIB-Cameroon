@@ -13,9 +13,30 @@
     tools:context="com.stephnoutsa.cuib.LoginType"
     tools:showIn="@layout/activity_login_type">
 
+    <Button
+        android:id="@+id/studentLogin"
+        android:background="@color/colorPrimary"
+        android:layout_centerInParent="true"
+        android:text="@string/student_login"
+        android:textColor="@android:color/white"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickStudentLogin" />
+
+    <Button
+        android:id="@+id/subscriberLogin"
+        android:background="@color/colorAccent"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/studentLogin"
+        android:layout_marginTop="20dp"
+        android:text="@string/subscriber_login"
+        android:textColor="@android:color/white"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickUserLogin" />
+
     <RelativeLayout
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -29,28 +50,7 @@
             app:civ_border_color="@android:color/transparent"
             android:layout_centerHorizontal="true" />-->
 
-        <Button
-            android:id="@+id/studentLogin"
-            android:background="@color/colorPrimary"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="@string/student_login"
-            android:textColor="@android:color/white"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:onClick="onClickStudentLogin" />
 
-        <Button
-            android:id="@+id/subscriberLogin"
-            android:background="@color/colorAccent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/studentLogin"
-            android:layout_marginTop="20dp"
-            android:text="@string/subscriber_login"
-            android:textColor="@android:color/white"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:onClick="onClickUserLogin" />
 
     </RelativeLayout>
 
