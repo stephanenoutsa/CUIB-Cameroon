@@ -5,14 +5,17 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stephnoutsa.cuib.models.Message;
@@ -29,6 +32,8 @@ public class Messages extends AppCompatActivity {
     ListView listView;
     ListAdapter listAdapter;
     Context context = this;
+    ImageView noMessagesIcon;
+    TextView noMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,12 @@ public class Messages extends AppCompatActivity {
         NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
         nMgr.cancelAll();
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Magnificent.ttf");
+
+        noMessagesIcon = (ImageView) findViewById(R.id.noMessagesIcon);
+        noMessages = (TextView) findViewById(R.id.noMessages);
+        noMessages.setTypeface(font, Typeface.BOLD);
+
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(android.os.Message msg) {
@@ -54,7 +65,8 @@ public class Messages extends AppCompatActivity {
 
                 // Display toast if there are no messages
                 if (messageList.isEmpty()) {
-                    Toast.makeText(context, getString(R.string.no_messages), Toast.LENGTH_SHORT).show();
+                    noMessagesIcon.setVisibility(View.VISIBLE);
+                    noMessages.setVisibility(View.VISIBLE);
                 }
 
                 // Reverse the order of the messages

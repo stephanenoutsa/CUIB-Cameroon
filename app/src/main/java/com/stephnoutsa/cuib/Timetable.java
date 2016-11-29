@@ -41,8 +41,8 @@ public class Timetable extends AppCompatActivity {
     MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
     String timetable = null;
     DownloadManager downloadManager;
-    TextView downloadText;
-    ImageView ttImage;
+    TextView noTimetable, downloadText;
+    ImageView noTimetableIcon, ttImage;
     ProgressBar progressBar;
 
     @Override
@@ -55,6 +55,9 @@ public class Timetable extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Magnificent.ttf");
 
+        noTimetable = (TextView) findViewById(R.id.noTimetable);
+        noTimetable.setTypeface(font, Typeface.BOLD);
+        noTimetableIcon = (ImageView) findViewById(R.id.noTimetableIcon);
         downloadText = (TextView) findViewById(R.id.downloadText);
         downloadText.setTypeface(font, Typeface.ITALIC);
         ttImage = (ImageView) findViewById(R.id.ttImage);
@@ -99,7 +102,8 @@ public class Timetable extends AppCompatActivity {
 
                             @Override
                             public void onBitmapFailed(Drawable errorDrawable) {
-                                Toast.makeText(context, getString(R.string.load_failed), Toast.LENGTH_SHORT).show();
+                                noTimetableIcon.setVisibility(View.VISIBLE);
+                                noTimetable.setVisibility(View.VISIBLE);
                             }
 
                             @Override
@@ -119,6 +123,10 @@ public class Timetable extends AppCompatActivity {
                     } else {
                         Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
 
+                        // Display placeholders
+                        noTimetableIcon.setVisibility(View.VISIBLE);
+                        noTimetable.setVisibility(View.VISIBLE);
+
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
                     }
@@ -128,12 +136,20 @@ public class Timetable extends AppCompatActivity {
                 public void onFailure(Call<Department> call, Throwable t) {
                     Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
 
+                    // Display placeholders
+                    noTimetableIcon.setVisibility(View.VISIBLE);
+                    noTimetable.setVisibility(View.VISIBLE);
+
                     // Remove progress bar
                     progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
             Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+
+            // Display placeholders
+            noTimetableIcon.setVisibility(View.VISIBLE);
+            noTimetable.setVisibility(View.VISIBLE);
 
             // Remove progress bar
             progressBar.setVisibility(View.GONE);

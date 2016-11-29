@@ -163,7 +163,7 @@
 
     <!-- Start of Courses activity literature -->
     <string name="title_activity_courses">Courses</string>
-    <string name="no_courses">No courses available</string>
+    <string name="no_courses">List of courses unavailable</string>
     <string name="course_code_placeholder">Course Code</string>
     <string name="course_title_placeholder">Course Title</string>
     <string name="course_desc_placeholder">Course Description</string>
@@ -171,6 +171,7 @@
 
     <!-- Start of Lecturers activity literature -->
     <string name="title_activity_lecturers">Lecturers</string>
+    <string name="no_lecturers">List of lecturers unavailable</string>
     <string name="lect_name_placeholder"><b>Lecturer Name</b></string>
     <string name="lect_bio_placeholder">Lecturer biography</string>
     <!-- End of Lecturers activity literature -->

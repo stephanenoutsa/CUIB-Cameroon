@@ -2,6 +2,7 @@ package com.stephnoutsa.cuib;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stephnoutsa.cuib.adapters.CourseAdapter;
@@ -37,6 +40,8 @@ public class Courses extends AppCompatActivity {
     ListView listView;
     ListAdapter listAdapter;
     ProgressBar progressBar;
+    ImageView noCoursesIcon;
+    TextView noCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,12 @@ public class Courses extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Magnificent.ttf");
+
+        noCoursesIcon = (ImageView) findViewById(R.id.noCoursesIcon);
+        noCourses = (TextView) findViewById(R.id.noCourses);
+        noCourses.setTypeface(font, Typeface.BOLD);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -76,7 +87,8 @@ public class Courses extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
 
                         if (courseList.isEmpty()) {
-                            Toast.makeText(context, getString(R.string.no_courses), Toast.LENGTH_SHORT).show();
+                            noCoursesIcon.setVisibility(View.VISIBLE);
+                            noCourses.setVisibility(View.VISIBLE);
                         } else {
                             for (Course course : courseList) {
                                 String cd = course.getCode();
@@ -109,6 +121,10 @@ public class Courses extends AppCompatActivity {
                     } else {
                         Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
 
+                        // Display placeholders
+                        noCoursesIcon.setVisibility(View.VISIBLE);
+                        noCourses.setVisibility(View.VISIBLE);
+
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
                     }
@@ -118,12 +134,20 @@ public class Courses extends AppCompatActivity {
                 public void onFailure(Call<Course[]> call, Throwable t) {
                     Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
 
+                    // Display placeholders
+                    noCoursesIcon.setVisibility(View.VISIBLE);
+                    noCourses.setVisibility(View.VISIBLE);
+
                     // Remove progress bar
                     progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
             Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+
+            // Display placeholders
+            noCoursesIcon.setVisibility(View.VISIBLE);
+            noCourses.setVisibility(View.VISIBLE);
 
             // Remove progress bar
             progressBar.setVisibility(View.GONE);

@@ -2,6 +2,7 @@ package com.stephnoutsa.cuib;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stephnoutsa.cuib.adapters.LecturerAdapter;
@@ -37,6 +40,8 @@ public class Lecturers extends AppCompatActivity {
     ListView listView;
     ListAdapter listAdapter;
     ProgressBar progressBar;
+    ImageView noLecturersIcon;
+    TextView noLecturers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +51,11 @@ public class Lecturers extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Lecturer a = new Lecturer();
-        lecturers.add(a);
-        Lecturer b = new Lecturer();
-        lecturers.add(b);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Magnificent.ttf");
+
+        noLecturersIcon = (ImageView) findViewById(R.id.noLecturersIcon);
+        noLecturers = (TextView) findViewById(R.id.noLecturers);
+        noLecturers.setTypeface(font, Typeface.BOLD);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -75,7 +81,12 @@ public class Lecturers extends AppCompatActivity {
                     int statusCode = response.code();
                     if (statusCode == 200) {
                         Lecturer[] ls = response.body();
-                        //lecturers = Arrays.asList(ls);
+                        lecturers = Arrays.asList(ls);
+
+                        if (lecturers.isEmpty()) {
+                            noLecturersIcon.setVisibility(View.VISIBLE);
+                            noLecturers.setVisibility(View.VISIBLE);
+                        }
 
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
@@ -103,6 +114,10 @@ public class Lecturers extends AppCompatActivity {
                     } else {
                         Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
 
+                        // Display placeholders
+                        noLecturersIcon.setVisibility(View.VISIBLE);
+                        noLecturers.setVisibility(View.VISIBLE);
+
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
                     }
@@ -112,12 +127,20 @@ public class Lecturers extends AppCompatActivity {
                 public void onFailure(Call<Lecturer[]> call, Throwable t) {
                     Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
 
+                    // Display placeholders
+                    noLecturersIcon.setVisibility(View.VISIBLE);
+                    noLecturers.setVisibility(View.VISIBLE);
+
                     // Remove progress bar
                     progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
             Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+
+            // Display placeholders
+            noLecturersIcon.setVisibility(View.VISIBLE);
+            noLecturers.setVisibility(View.VISIBLE);
 
             // Remove progress bar
             progressBar.setVisibility(View.GONE);
