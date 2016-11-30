@@ -127,6 +127,8 @@ public class StudentLogin extends AppCompatActivity {
                         Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
+            } else {
+                Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
             }
         }
     }
