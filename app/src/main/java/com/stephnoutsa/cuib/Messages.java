@@ -97,6 +97,7 @@ public class Messages extends AppCompatActivity {
                         final int mid = message.getId();
 
                         new AlertDialog.Builder(context).
+                                setIcon(android.R.drawable.ic_menu_delete).
                                 setTitle(getString(R.string.delete_title)).
                                 setMessage(getString(R.string.delete_msg)).
                                 setPositiveButton(getString(R.string.delete_ok), new DialogInterface.OnClickListener() {
