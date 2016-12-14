@@ -179,6 +179,16 @@ public class Home extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        status = dbHandler.getSubscribed();
+        if (status.equals("pending")) {
+            Intent i = new Intent(context, JoinUs.class);
+            startActivity(i);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
