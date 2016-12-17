@@ -79,6 +79,7 @@
     <string name="gender_invalid">You must choose a gender</string>
     <string name="password_invalid">Invalid password</string>
     <string name="confirm_invalid">Passwords don\'t match</string>
+    <string name="user_role">Subscriber</string>
     <string name="check_failed">Couldn\'t perform operation. Please try again later</string>
     <string name="network_error">Couldn\'t establish communication with server. Please try again later</string>
     <string name="user_exists" formatted="false">
