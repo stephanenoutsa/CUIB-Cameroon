@@ -93,12 +93,13 @@ public class Courses extends AppCompatActivity {
                             for (Course course : courseList) {
                                 String cd = course.getCode();
                                 String nm = course.getName();
+                                String dsc = course.getDescription();
                                 String[] sch = course.getSchools();
                                 String[] dpt = course.getDepartments();
                                 String[] lvl = course.getLevels();
 
                                 // Add course to local database
-                                dbHandler.addCourse(cd, nm, sch, dpt, lvl);
+                                dbHandler.addCourse(cd, nm, dsc, sch, dpt, lvl);
                             }
                         }
 

@@ -18,6 +18,9 @@ public class Course {
     @SerializedName("name")
     String name;
 
+    @SerializedName("description")
+    String description;
+
     @SerializedName("schools")
     String[] schools;
 
@@ -33,19 +36,21 @@ public class Course {
     }
 
     // Constructor
-    public Course(int id, String code, String name, String[] schools, String[] departments, String[] levels) {
+    public Course(int id, String code, String name, String description, String[] schools, String[] departments, String[] levels) {
         this.id = id;
         this.code = code;
         this.name = name;
+        this.description = description;
         this.schools = schools;
         this.departments = departments;
         this.levels = levels;
     }
 
     // Constructor
-    public Course(String code, String name, String[] schools, String[] departments, String[] levels) {
+    public Course(String code, String name, String description, String[] schools, String[] departments, String[] levels) {
         this.code = code;
         this.name = name;
+        this.description = description;
         this.schools = schools;
         this.departments = departments;
         this.levels = levels;
@@ -74,6 +79,14 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String[] getSchools() {

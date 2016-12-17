@@ -36,7 +36,7 @@ public class MyAccount extends AppCompatActivity {
     User newUser;
     TextView forSubscribed, emailLabel, phoneLabel, dobLabel, genderLabel, passwordLabel, confirmLabel;
     EditText emailField, phoneField, dobField, passwordField, confirmField;
-    String email, phone, dob, gender, password, cPassword, subscribed, eml;
+    String email, phone, dob, gender, password, cPassword, role, subscribed, eml;
     RadioButton male, female, other;
     Button updateAccount;
 
@@ -205,13 +205,14 @@ public class MyAccount extends AppCompatActivity {
         dob = dobField.getText().toString();
         password = passwordField.getText().toString();
         cPassword = confirmField.getText().toString();
+        role = getString(R.string.user_role);
 
         if (validate(email, phone, dob, gender, password, cPassword)) {
             // Check if user is connected
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                User user = new User(email, phone, dob, gender, password);
+                User user = new User(email, phone, dob, gender, password, role);
 
                 subscribed = dbHandler.getSubscribed();
                 if (subscribed.equals("yes")) { // Update user
@@ -268,9 +269,10 @@ public class MyAccount extends AppCompatActivity {
                                 String udob = u.getDob();
                                 String ugender = u.getGender();
                                 String upassword = u.getPassword();
+                                String urole = u.getRole();
 
                                 if (uemail.equals("null") && uphone.equals("null") && udob.equals("null")
-                                        && ugender.equals("null") && upassword.equals("null")) {
+                                        && ugender.equals("null") && upassword.equals("null") && urole.equals("null")) {
                                     Toast.makeText(context, getString(R.string.user_exists), Toast.LENGTH_LONG).show();
                                 } else {
                                     // Update subscribed status

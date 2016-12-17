@@ -26,27 +26,32 @@ public class User {
     @SerializedName("password")
     String password;
 
+    @SerializedName("role")
+    String role;
+
     // Empty constructor
     public User() {
     }
 
     // Constructor
-    public User(int id, String email, String phone, String dob, String gender, String password) {
+    public User(int id, String email, String phone, String dob, String gender, String password, String role) {
         this.id = id;
         this.email = email;
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;
         this.password = password;
+        this.role = role;
     }
 
     // Constructor
-    public User(String email, String phone, String dob, String gender, String password) {
+    public User(String email, String phone, String dob, String gender, String password, String role) {
         this.email = email;
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;
         this.password = password;
+        this.role = role;
     }
 
     // Getter and Setter methods
@@ -96,5 +101,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

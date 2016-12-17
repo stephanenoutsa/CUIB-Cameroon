@@ -33,7 +33,7 @@ public class SignUp extends AppCompatActivity {
     MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
     TextView emailLabel, phoneLabel, dobLabel, genderLabel, passwordLabel, confirmLabel;
     EditText emailField, phoneField, dobField, passwordField, confirmField;
-    String email, phone, dob, gender, password, cPassword;
+    String email, phone, dob, gender, password, cPassword, role;
     RadioButton male, female, other;
 
     @Override
@@ -135,13 +135,14 @@ public class SignUp extends AppCompatActivity {
         dob = dobField.getText().toString();
         password = passwordField.getText().toString();
         cPassword = confirmField.getText().toString();
+        role = getString(R.string.user_role);
 
         if (validate(email, phone, dob, gender, password, cPassword)) {
             // Check if user is connected
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                User user = new User(email, phone, dob, gender, password);
+                User user = new User(email, phone, dob, gender, password, role);
 
                 /** Add user to remote server */
                 RetrofitHandler retrofitHandler = new RetrofitHandler();
@@ -161,9 +162,10 @@ public class SignUp extends AppCompatActivity {
                             String udob = u.getDob();
                             String ugender = u.getGender();
                             String upassword = u.getPassword();
+                            String urole = u.getRole();
 
                             if (uemail.equals("null") && uphone.equals("null") && udob.equals("null")
-                                    && ugender.equals("null") && upassword.equals("null")) {
+                                    && ugender.equals("null") && upassword.equals("null") && urole.equals("null")) {
                                 Toast.makeText(context, getString(R.string.user_exists), Toast.LENGTH_LONG).show();
                             } else {
                                 // Update subscribed status

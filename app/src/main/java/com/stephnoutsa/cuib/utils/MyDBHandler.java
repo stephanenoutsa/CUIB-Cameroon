@@ -48,6 +48,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String USER_COLUMN_DOB = "dob";
     private static final String USER_COLUMN_GENDER = "gender";
     private static final String USER_COLUMN_PASSWORD = "password";
+    private static final String USER_COLUMN_ROLE = "role";
 
     private static final String TABLE_DEPT = "department";
     private static final String DEPT_COLUMN_ID = "_did";
@@ -60,6 +61,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String COURSE_COLUMN_ID = "_cid";
     private static final String COURSE_COLUMN_CODE = "code";
     private static final String COURSE_COLUMN_NAME = "name";
+    private static final String COURSE_COLUMN_DESC = "description";
     private static final String COURSE_COLUMN_SCHOOLS = "schools";
     private static final String COURSE_COLUMN_DEPTS = "departments";
     private static final String COURSE_COLUMN_LEVELS = "levels";
@@ -111,12 +113,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 USER_COLUMN_PHONE + " TEXT " + ", " +
                 USER_COLUMN_DOB + " TEXT " + ", " +
                 USER_COLUMN_GENDER + " TEXT " + ", " +
-                USER_COLUMN_PASSWORD + " TEXT " +
+                USER_COLUMN_PASSWORD + " TEXT " + ", " +
+                USER_COLUMN_ROLE + " TEXT " +
                 ")";
         db.execSQL(user);
 
         // Add placeholder values for User table
-        addUser("null", "null", "null", "null", "null");
+        addUser("null", "null", "null", "null", "null", "null");
 
         String dept = "CREATE TABLE " + TABLE_DEPT + "(" +
                 DEPT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
@@ -134,6 +137,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 COURSE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT  "  + ", " +
                 COURSE_COLUMN_CODE + " TEXT " + ", " +
                 COURSE_COLUMN_NAME + " TEXT " + ", " +
+                COURSE_COLUMN_DESC + " TEXT " + ", " +
                 COURSE_COLUMN_SCHOOLS + " TEXT " + ", " +
                 COURSE_COLUMN_DEPTS + " TEXT " + ", " +
                 COURSE_COLUMN_LEVELS + " TEXT " +
@@ -141,7 +145,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(course);
 
         // Add placeholder values for Course table
-        addCourse("null", "null", null, null, null);
+        addCourse("null", "null", "null", null, null, null);
 
         String msg = "CREATE TABLE " + TABLE_MSG + "(" +
                 MSG_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT  "  + ", " +
@@ -356,7 +360,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // Add user to User table
-    public void addUser(String email, String phone, String dob, String gender, String password) {
+    public void addUser(String email, String phone, String dob, String gender, String password, String role) {
         ContentValues values = new ContentValues();
 
         values.put(USER_COLUMN_EMAIL, email);
@@ -364,6 +368,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(USER_COLUMN_DOB, dob);
         values.put(USER_COLUMN_GENDER, gender);
         values.put(USER_COLUMN_PASSWORD, password);
+        values.put(USER_COLUMN_ROLE, role);
 
         if (db == null)
             db = getWritableDatabase();
@@ -377,6 +382,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String dob = user.getDob();
         String gender = user.getGender();
         String password = user.getPassword();
+        String role = user.getRole();
 
         ContentValues values = new ContentValues();
 
@@ -385,6 +391,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(USER_COLUMN_DOB, dob);
         values.put(USER_COLUMN_GENDER, gender);
         values.put(USER_COLUMN_PASSWORD, password);
+        values.put(USER_COLUMN_ROLE, role);
 
         if (db == null)
             db = getWritableDatabase();
@@ -413,6 +420,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         user.setDob(c.getString(3));
         user.setGender(c.getString(4));
         user.setPassword(c.getString(5));
+        user.setRole(c.getString(6));
 
         try {
             return user;
@@ -430,6 +438,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(USER_COLUMN_DOB, user.getDob());
         values.put(USER_COLUMN_GENDER, user.getGender());
         values.put(USER_COLUMN_PASSWORD, user.getPassword());
+        values.put(USER_COLUMN_ROLE, user.getRole());
 
         if (db == null)
             db = getWritableDatabase();
@@ -446,7 +455,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
 
         // Add placeholder values for User table
-        addUser("null", "null", "null", "null", "null");
+        addUser("null", "null", "null", "null", "null", "null");
     }
 
     // Add dept to Dept table
@@ -505,11 +514,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // Add course to Course table
-    public void addCourse(String code, String name, String[] schools, String [] departments, String[] levels) {
+    public void addCourse(String code, String name, String description, String[] schools, String [] departments, String[] levels) {
         ContentValues values = new ContentValues();
 
         values.put(COURSE_COLUMN_CODE, code);
         values.put(COURSE_COLUMN_NAME, name);
+        values.put(COURSE_COLUMN_DESC, description);
         values.put(COURSE_COLUMN_SCHOOLS, arrayToString(schools));
         values.put(COURSE_COLUMN_DEPTS, arrayToString(departments));
         values.put(COURSE_COLUMN_LEVELS, arrayToString(levels));
@@ -540,6 +550,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             course.setId(Integer.parseInt(c.getString(0)));
             course.setCode(c.getString(1));
             course.setName(c.getString(2));
+            course.setDescription(c.getString(3));
             course.setSchools(stringToArray(c.getString(3)));
             course.setDepartments(stringToArray(c.getString(4)));
             course.setLevels(stringToArray(c.getString(5)));
@@ -572,6 +583,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         course.setId(Integer.parseInt(c.getString(0)));
         course.setCode(c.getString(1));
         course.setName(c.getString(2));
+        course.setDescription(c.getString(3));
         course.setSchools(stringToArray(c.getString(3)));
         course.setDepartments(stringToArray(c.getString(4)));
         course.setLevels(stringToArray(c.getString(5)));
@@ -592,7 +604,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
 
         // Add placeholder values for User table
-        addCourse("null", "null", null, null, null);
+        addCourse("null", "null", "null", null, null, null);
     }
 
     // Add message to Message table
