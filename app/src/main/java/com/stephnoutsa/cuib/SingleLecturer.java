@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +34,13 @@ public class SingleLecturer extends AppCompatActivity {
         TextView lectBio = (TextView) findViewById(R.id.lectBio);
         TextView school = (TextView) findViewById(R.id.school);
 
-        Picasso.with(this).load(R.drawable.admissions).into(lectAvatar);
+        Picasso.with(this).load(avatar).into(lectAvatar);
 
         lectName.setTypeface(font, Typeface.BOLD);
-        lectName.setText(getString(R.string.lect_name_placeholder));
+        lectName.setText(name);
 
         lectBio.setTypeface(font);
-        lectBio.setText(R.string.lect_bio_placeholder);
+        lectBio.setText(bio);
 
         school.setTypeface(font);
     }

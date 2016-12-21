@@ -43,19 +43,17 @@ public class LecturerAdapter extends ArrayAdapter<Lecturer> {
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Magnificent.ttf");
 
-        /*String avatar = l.getAvatar();
+        String avatar = l.getAvatar();
         String name = l.getName();
-        String bio = l.getBio();*/
+        String bio = l.getBio();
 
-        Picasso.with(context).load(R.drawable.admissions).into(lectAvatar);
+        Picasso.with(context).load(avatar).into(lectAvatar);
 
         lectName.setTypeface(font, Typeface.BOLD);
-        //lectName.setText(name);
-        lectName.setText(context.getString(R.string.lect_name_placeholder));
+        lectName.setText(name);
 
         lectBio.setTypeface(font);
-        //lectBio.setText(bio);
-        lectBio.setText(trimText(context.getString(R.string.lect_bio_placeholder)));
+        lectBio.setText(trimText(bio));
 
         return customView;
     }
