@@ -45,7 +45,7 @@ public interface CuibService {
     // End of methods for courses
 
     // Start of methods for lecturers
-    @GET("courses/{dept}/{level}")
+    @GET("lecturers/{dept}/{level}")
     Call<Lecturer[]> getLecturers(@Path("dept") String dept, @Path("level") String level);
     // End of methods for lecturers
 
