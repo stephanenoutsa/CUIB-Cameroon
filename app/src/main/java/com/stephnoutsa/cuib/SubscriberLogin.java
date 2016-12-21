@@ -29,7 +29,7 @@ public class SubscriberLogin extends AppCompatActivity {
     User user, newUser;
     TextView wrongCredentials, emailLabel, passwordLabel, forgotPassword;
     EditText emailField, passwordField;
-    String email, password;
+    String email, password, role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +67,14 @@ public class SubscriberLogin extends AppCompatActivity {
     public void onClickLogin(View view) {
         email = emailField.getText().toString();
         password = passwordField.getText().toString();
+        role = getString(R.string.user_role);
 
         if (noEmptyField(email, password)) {
             // Check is student is connected
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                user = new User(email, "null", "null", "null", password);
+                user = new User(email, "null", "null", "null", password, role);
 
                 /** Check for user in remote database */
                 // Trailing slash is needed
@@ -95,9 +96,10 @@ public class SubscriberLogin extends AppCompatActivity {
                             String db = newUser.getPhone();
                             String gdr = newUser.getPhone();
                             String pw = newUser.getPassword();
+                            String rl = newUser.getRole();
 
                             if (eml.equals("null") && phn.equals("null") && db.equals("null") && gdr.equals("null")
-                                    && pw.equals("null")) {
+                                    && pw.equals("null") && rl.equals("null")) {
                                 wrongCredentials.setVisibility(View.VISIBLE);
                             } else {
                                 // Remove wrongCredentials view if present
