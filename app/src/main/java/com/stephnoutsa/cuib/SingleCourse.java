@@ -12,7 +12,7 @@ import com.stephnoutsa.cuib.utils.MyDBHandler;
 public class SingleCourse extends AppCompatActivity {
 
     MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-    String cid = "";
+    String code = "";
     Course course;
     TextView crsCode, crsTitle, crsDesc;
 
@@ -26,13 +26,12 @@ public class SingleCourse extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Magnificent.ttf");
 
-        cid = getIntent().getExtras().getString("id");
-        int id = Integer.parseInt(cid);
+        code = getIntent().getExtras().getString("code");
 
-        course = dbHandler.getCourse(id);
+        course = dbHandler.getCourse(code);
         String code = course.getCode();
         String title = course.getName();
-        //String description = course.getDescription();
+        String description = course.getDescription();
 
         crsCode = (TextView) findViewById(R.id.crsCode);
         crsCode.setTypeface(font);
@@ -44,7 +43,7 @@ public class SingleCourse extends AppCompatActivity {
 
         crsDesc = (TextView) findViewById(R.id.crsDesc);
         crsDesc.setTypeface(font);
-        //crsDesc.setText(description);
+        crsDesc.setText(description);
     }
 
 }

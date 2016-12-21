@@ -551,9 +551,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
             course.setCode(c.getString(1));
             course.setName(c.getString(2));
             course.setDescription(c.getString(3));
-            course.setSchools(stringToArray(c.getString(3)));
-            course.setDepartments(stringToArray(c.getString(4)));
-            course.setLevels(stringToArray(c.getString(5)));
+            course.setSchools(stringToArray(c.getString(4)));
+            course.setDepartments(stringToArray(c.getString(5)));
+            course.setLevels(stringToArray(c.getString(6)));
 
             courses.add(course);
         }
@@ -571,7 +571,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             db = getReadableDatabase();
 
         Cursor c = db.query(TABLE_COURSE,
-                new String[] {COURSE_COLUMN_ID, COURSE_COLUMN_CODE, COURSE_COLUMN_NAME, COURSE_COLUMN_SCHOOLS,
+                new String[] {COURSE_COLUMN_ID, COURSE_COLUMN_CODE, COURSE_COLUMN_NAME, COURSE_COLUMN_DESC,
                         COURSE_COLUMN_DEPTS, COURSE_COLUMN_LEVELS},
                 COURSE_COLUMN_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -584,9 +584,39 @@ public class MyDBHandler extends SQLiteOpenHelper {
         course.setCode(c.getString(1));
         course.setName(c.getString(2));
         course.setDescription(c.getString(3));
-        course.setSchools(stringToArray(c.getString(3)));
-        course.setDepartments(stringToArray(c.getString(4)));
-        course.setLevels(stringToArray(c.getString(5)));
+        course.setSchools(stringToArray(c.getString(4)));
+        course.setDepartments(stringToArray(c.getString(5)));
+        course.setLevels(stringToArray(c.getString(6)));
+
+        try {
+            return course;
+        } finally {
+            c.close();
+        }
+    }
+
+    // Get single course from Course table
+    public Course getCourse(String code) {
+        if (db == null)
+            db = getReadableDatabase();
+
+        Cursor c = db.query(TABLE_COURSE,
+                new String[] {COURSE_COLUMN_ID, COURSE_COLUMN_CODE, COURSE_COLUMN_NAME, COURSE_COLUMN_DESC,
+                        COURSE_COLUMN_SCHOOLS, COURSE_COLUMN_DEPTS, COURSE_COLUMN_LEVELS},
+                COURSE_COLUMN_CODE + "=?", new String[] {code}, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        Course course = new Course();
+
+        course.setId(Integer.parseInt(c.getString(0)));
+        course.setCode(c.getString(1));
+        course.setName(c.getString(2));
+        course.setDescription(c.getString(3));
+        course.setSchools(stringToArray(c.getString(4)));
+        course.setDepartments(stringToArray(c.getString(5)));
+        course.setLevels(stringToArray(c.getString(6)));
 
         try {
             return course;

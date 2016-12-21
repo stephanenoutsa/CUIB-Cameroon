@@ -113,9 +113,9 @@ public class Courses extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Course course = (Course) parent.getItemAtPosition(position);
-                                String cid = "" + course.getId();
+                                String code = course.getCode();
                                 Intent i = new Intent(context, SingleCourse.class);
-                                i.putExtra("id", cid);
+                                i.putExtra("code", code);
                                 startActivity(i);
                             }
                         });
