@@ -27,7 +27,7 @@ public interface CuibService {
     @POST("users")
     Call<User> addUser(@Body User user);
 
-    @PUT("users/{email}")
+    @PUT("users/app/{email}")
     Call<User> updateUser(@Path("email") String email, @Body User user);
 
     @POST("users/check/login")
