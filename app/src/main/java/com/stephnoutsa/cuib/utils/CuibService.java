@@ -1,7 +1,7 @@
 package com.stephnoutsa.cuib.utils;
 
 import com.stephnoutsa.cuib.models.Course;
-import com.stephnoutsa.cuib.models.Department;
+import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Lecturer;
 import com.stephnoutsa.cuib.models.Student;
 import com.stephnoutsa.cuib.models.Token;
@@ -34,10 +34,10 @@ public interface CuibService {
     Call<User> loginCheck(@Body User user);
     // End of methods for users
 
-    // Start of methods for departments
-    @GET("departments/{dept}/{level}")
-    Call<Department> getDepartment(@Path("dept") String dept, @Path("level") String level);
-    // End of methods for departments
+    // Start of methods for timetables
+    @GET("timetables/{dept}/{level}")
+    Call<Timetable> getTimetable(@Path("dept") String dept, @Path("level") String level);
+    // End of methods for timetables
 
     // Start of methods for courses
     @GET("courses/{dept}/{level}")

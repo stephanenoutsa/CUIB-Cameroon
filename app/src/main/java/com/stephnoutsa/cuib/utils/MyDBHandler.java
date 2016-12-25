@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.stephnoutsa.cuib.models.Course;
-import com.stephnoutsa.cuib.models.Department;
+import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Message;
 import com.stephnoutsa.cuib.models.Student;
 import com.stephnoutsa.cuib.models.User;
@@ -50,12 +50,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String USER_COLUMN_PASSWORD = "password";
     private static final String USER_COLUMN_ROLE = "role";
 
-    private static final String TABLE_DEPT = "department";
-    private static final String DEPT_COLUMN_ID = "_did";
-    private static final String DEPT_COLUMN_NAME = "name";
-    private static final String DEPT_COLUMN_SCHOOL = "school";
-    private static final String DEPT_COLUMN_LEVEL = "level";
-    private static final String DEPT_COLUMN_TT = "timetable";
+    private static final String TABLE_TIMETABLE = "timetable";
+    private static final String TT_COLUMN_ID = "_tid";
+    private static final String TT_COLUMN_SCHOOL = "school";
+    private static final String TT_COLUMN_DEPT = "department";
+    private static final String TT_COLUMN_LEVEL = "level";
+    private static final String TT_COLUMN_URL = "url";
 
     private static final String TABLE_COURSE = "course";
     private static final String COURSE_COLUMN_ID = "_cid";
@@ -121,17 +121,17 @@ public class MyDBHandler extends SQLiteOpenHelper {
         // Add placeholder values for User table
         addUser("null", "null", "null", "null", "null", "null");
 
-        String dept = "CREATE TABLE " + TABLE_DEPT + "(" +
-                DEPT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
-                DEPT_COLUMN_NAME + " TEXT " + ", " +
-                DEPT_COLUMN_SCHOOL + " TEXT " + ", " +
-                DEPT_COLUMN_LEVEL + " TEXT " + ", " +
-                DEPT_COLUMN_TT + " TEXT " +
+        String timetable = "CREATE TABLE " + TABLE_TIMETABLE + "(" +
+                TT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
+                TT_COLUMN_SCHOOL + " TEXT " + ", " +
+                TT_COLUMN_DEPT + " TEXT " + ", " +
+                TT_COLUMN_LEVEL + " TEXT " + ", " +
+                TT_COLUMN_URL + " TEXT " +
                 ")";
-        db.execSQL(dept);
+        db.execSQL(timetable);
 
-        // Add placeholder values for Dept table
-        addDept("null", "null", "null", "null");
+        // Add placeholder values for Timetable table
+        addTimetable("null", "null", "null", "null");
 
         String course = "CREATE TABLE " + TABLE_COURSE + "(" +
                 COURSE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT  "  + ", " +
@@ -171,7 +171,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER + ";");
         onCreate(db);
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEPT + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TIMETABLE + ";");
         onCreate(db);
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE + ";");
@@ -458,27 +458,27 @@ public class MyDBHandler extends SQLiteOpenHelper {
         addUser("null", "null", "null", "null", "null", "null");
     }
 
-    // Add dept to Dept table
-    public void addDept(String name, String school, String level, String timetable) {
+    // Add timetable to Timetable table
+    public void addTimetable(String school, String department, String level, String url) {
         ContentValues values = new ContentValues();
 
-        values.put(DEPT_COLUMN_NAME, name);
-        values.put(DEPT_COLUMN_SCHOOL, school);
-        values.put(DEPT_COLUMN_LEVEL, level);
-        values.put(DEPT_COLUMN_TT, timetable);
+        values.put(TT_COLUMN_SCHOOL, school);
+        values.put(TT_COLUMN_DEPT, department);
+        values.put(TT_COLUMN_LEVEL, level);
+        values.put(TT_COLUMN_URL, url);
 
         if (db == null)
             db = getWritableDatabase();
 
-        db.insert(TABLE_DEPT, null, values);
+        db.insert(TABLE_TIMETABLE, null, values);
     }
 
-    // Get dept from Dept table
-    public Department getDept() {
+    // Get timetable from Timetable table
+    public Timetable getTimetable() {
         if (db == null)
             db = getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_DEPT + " WHERE 1;";
+        String query = "SELECT * FROM " + TABLE_TIMETABLE + " WHERE 1;";
 
         Cursor c = db.rawQuery(query, null);
 
@@ -487,30 +487,30 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         c.moveToLast();
 
-        Department d = new Department();
-        d.setId(Integer.parseInt(c.getString(0)));
-        d.setName(c.getString(1));
-        d.setSchool(c.getString(2));
-        d.setLevel(c.getString(3));
-        d.setTimetable(c.getString(4));
+        Timetable t = new Timetable();
+        t.setId(Integer.parseInt(c.getString(0)));
+        t.setSchool(c.getString(1));
+        t.setDepartment(c.getString(2));
+        t.setLevel(c.getString(3));
+        t.setUrl(c.getString(4));
 
         try {
-            return d;
+            return t;
         } finally {
             c.close();
         }
     }
 
-    // Delete dept from Dept table
-    public void deleteDept() {
+    // Delete timetable from Timetable table
+    public void deleteTimetable() {
         if (db == null)
             db = getWritableDatabase();
 
-        String query = "DELETE FROM " + TABLE_DEPT + " WHERE 1;";
+        String query = "DELETE FROM " + TABLE_TIMETABLE + " WHERE 1;";
         db.execSQL(query);
 
         // Add placeholder values for User table
-        addDept("null", "null", "null", "null");
+        addTimetable("null", "null", "null", "null");
     }
 
     // Add course to Course table

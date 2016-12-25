@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.stephnoutsa.cuib.models.Department;
 import com.stephnoutsa.cuib.models.Student;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
@@ -70,7 +69,7 @@ public class Timetable extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             // Get student's details from database
             Student student = dbHandler.getStudent();
-            String department = student.getDepartment();
+            final String department = student.getDepartment();
             String level = student.getLevel();
 
             /** Get corresponding timetable from server */
@@ -78,70 +77,60 @@ public class Timetable extends AppCompatActivity {
 
             CuibService cuibService = retrofitHandler.create();
 
-            Call<Department> call = cuibService.getDepartment(department, level);
-            call.clone().enqueue(new Callback<Department>() {
+            Call<com.stephnoutsa.cuib.models.Timetable> call = cuibService.getTimetable(department, level);
+            call.clone().enqueue(new Callback<com.stephnoutsa.cuib.models.Timetable>() {
                 @Override
-                public void onResponse(Call<Department> call, Response<Department> response) {
+                public void onResponse(Call<com.stephnoutsa.cuib.models.Timetable> call, Response<com.stephnoutsa.cuib.models.Timetable> response) {
                     int statusCode = response.code();
                     if (statusCode == 200) {
-                        Department d = response.body();
+                        com.stephnoutsa.cuib.models.Timetable t = response.body();
 
-                        String name = d.getName();
-                        String school = d.getSchool();
-                        String level = d.getLevel();
-                        timetable = d.getTimetable();
+                        String school = t.getSchool();
+                        String dept = t.getDepartment();
+                        String level = t.getLevel();
+                        timetable = t.getUrl();
 
-                        // Display the timetable image
-                        Target target = new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                downloadText.setText(R.string.download_text);
+                        if (timetable != null) {
+                            // Display the timetable image
+                            Target target = new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    downloadText.setText(R.string.download_text);
 
-                                ttImage.setImageBitmap(bitmap);
-                            }
+                                    ttImage.setImageBitmap(bitmap);
+                                }
 
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
-                                noTimetableIcon.setVisibility(View.VISIBLE);
-                                noTimetable.setVisibility(View.VISIBLE);
-                            }
+                                @Override
+                                public void onBitmapFailed(Drawable errorDrawable) {
+                                    noTimetableIcon.setVisibility(View.VISIBLE);
+                                    noTimetable.setVisibility(View.VISIBLE);
+                                }
 
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                            }
-                        };
-                        Picasso.with(context).
-                                load(timetable).
-                                into(target);
-
-                        // Remove progress bar
-                        progressBar.setVisibility(View.GONE);
-
-                        // Add department to local database
-                        dbHandler.addDept(name, school, level, timetable);
-                    } else {
-                        Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
-
-                        // Display placeholders
-                        noTimetableIcon.setVisibility(View.VISIBLE);
-                        noTimetable.setVisibility(View.VISIBLE);
+                                }
+                            };
+                            Picasso.with(context).
+                                    load(timetable).
+                                    into(target);
+                        } else {
+                            // Display placeholders
+                            noTimetableIcon.setVisibility(View.VISIBLE);
+                            noTimetable.setVisibility(View.VISIBLE);
+                        }
 
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
+
+                        // Add timetable to local database
+                        dbHandler.addTimetable(school, dept, level, timetable);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Department> call, Throwable t) {
-                    Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                public void onFailure(Call<com.stephnoutsa.cuib.models.Timetable> call, Throwable t) {
 
-                    // Display placeholders
-                    noTimetableIcon.setVisibility(View.VISIBLE);
-                    noTimetable.setVisibility(View.VISIBLE);
-
-                    // Remove progress bar
-                    progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
