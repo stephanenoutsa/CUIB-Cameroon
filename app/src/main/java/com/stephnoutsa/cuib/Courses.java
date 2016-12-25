@@ -24,6 +24,7 @@ import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,53 +75,67 @@ public class Courses extends AppCompatActivity {
 
             CuibService cuibService = retrofitHandler.create();
 
-            Call<Course[]> call = cuibService.getCourses(department, level);
-            call.clone().enqueue(new Callback<Course[]>() {
-                @Override
-                public void onResponse(Call<Course[]> call, Response<Course[]> response) {
-                    int statusCode = response.code();
-                    if (statusCode == 200) {
-                        Course[] c = response.body();
-                        courseList = Arrays.asList(c);
+            try {
+                Call<Course[]> call = cuibService.getCourses(URLEncoder.encode(department, "UTF-8"), level);
+                call.clone().enqueue(new Callback<Course[]>() {
+                    @Override
+                    public void onResponse(Call<Course[]> call, Response<Course[]> response) {
+                        int statusCode = response.code();
+                        if (statusCode == 200) {
+                            Course[] c = response.body();
+                            courseList = Arrays.asList(c);
 
-                        // Remove progress bar
-                        progressBar.setVisibility(View.GONE);
+                            // Remove progress bar
+                            progressBar.setVisibility(View.GONE);
 
-                        if (courseList.isEmpty()) {
+                            if (courseList.isEmpty()) {
+                                noCoursesIcon.setVisibility(View.VISIBLE);
+                                noCourses.setVisibility(View.VISIBLE);
+                            } else {
+                                for (Course course : courseList) {
+                                    String cd = course.getCode();
+                                    String nm = course.getName();
+                                    String dsc = course.getDescription();
+                                    String[] sch = course.getSchools();
+                                    String[] dpt = course.getDepartments();
+                                    String[] lvl = course.getLevels();
+
+                                    // Add course to local database
+                                    dbHandler.addCourse(cd, nm, dsc, sch, dpt, lvl);
+                                }
+                            }
+
+                            listAdapter = new CourseAdapter(context, courseList);
+
+                            listView = (ListView) findViewById(R.id.courseList);
+                            listView.setAdapter(listAdapter);
+
+                            // Action when user clicks a list item
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Course course = (Course) parent.getItemAtPosition(position);
+                                    String code = course.getCode();
+                                    Intent i = new Intent(context, SingleCourse.class);
+                                    i.putExtra("code", code);
+                                    startActivity(i);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
+
+                            // Display placeholders
                             noCoursesIcon.setVisibility(View.VISIBLE);
                             noCourses.setVisibility(View.VISIBLE);
-                        } else {
-                            for (Course course : courseList) {
-                                String cd = course.getCode();
-                                String nm = course.getName();
-                                String dsc = course.getDescription();
-                                String[] sch = course.getSchools();
-                                String[] dpt = course.getDepartments();
-                                String[] lvl = course.getLevels();
 
-                                // Add course to local database
-                                dbHandler.addCourse(cd, nm, dsc, sch, dpt, lvl);
-                            }
+                            // Remove progress bar
+                            progressBar.setVisibility(View.GONE);
                         }
+                    }
 
-                        listAdapter = new CourseAdapter(context, courseList);
-
-                        listView = (ListView) findViewById(R.id.courseList);
-                        listView.setAdapter(listAdapter);
-
-                        // Action when user clicks a list item
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Course course = (Course) parent.getItemAtPosition(position);
-                                String code = course.getCode();
-                                Intent i = new Intent(context, SingleCourse.class);
-                                i.putExtra("code", code);
-                                startActivity(i);
-                            }
-                        });
-                    } else {
-                        Toast.makeText(context, getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call<Course[]> call, Throwable t) {
+                        Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
 
                         // Display placeholders
                         noCoursesIcon.setVisibility(View.VISIBLE);
@@ -129,20 +144,10 @@ public class Courses extends AppCompatActivity {
                         // Remove progress bar
                         progressBar.setVisibility(View.GONE);
                     }
-                }
-
-                @Override
-                public void onFailure(Call<Course[]> call, Throwable t) {
-                    Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
-
-                    // Display placeholders
-                    noCoursesIcon.setVisibility(View.VISIBLE);
-                    noCourses.setVisibility(View.VISIBLE);
-
-                    // Remove progress bar
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
 
