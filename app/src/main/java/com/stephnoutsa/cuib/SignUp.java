@@ -16,11 +16,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.hash.Hashing;
 import com.stephnoutsa.cuib.models.User;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
+import java.nio.charset.Charset;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -142,7 +144,10 @@ public class SignUp extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                User user = new User(email, phone, dob, gender, password, role);
+                // Hash password
+                String pwd = Hashing.sha256().hashString(password, Charset.forName("UTF-8")).toString();
+
+                User user = new User(email, phone, dob, gender, pwd, role);
 
                 /** Add user to remote server */
                 RetrofitHandler retrofitHandler = new RetrofitHandler();

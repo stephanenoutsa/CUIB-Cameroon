@@ -13,10 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.hash.Hashing;
 import com.stephnoutsa.cuib.models.User;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
+
+import java.nio.charset.Charset;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +77,10 @@ public class SubscriberLogin extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                user = new User(email, "null", "null", "null", password, role);
+                // Hash password
+                String pwd = Hashing.sha256().hashString(password, Charset.forName("UTF-8")).toString();
+
+                user = new User(email, "null", "null", "null", pwd, role);
 
                 /** Check for user in remote database */
                 // Trailing slash is needed

@@ -13,10 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.hash.Hashing;
 import com.stephnoutsa.cuib.models.Student;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
+
+import java.nio.charset.Charset;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +76,10 @@ public class StudentLogin extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                student = new Student("null", matricule, "null", "null", "null", "null", "null", "null", password);
+                // Hash password
+                String pwd = Hashing.sha256().hashString(password, Charset.forName("UTF-8")).toString();
+
+                student = new Student("null", matricule, "null", "null", "null", "null", "null", "null", pwd);
 
                 /** Check for student in remote database */
                 RetrofitHandler retrofitHandler = new RetrofitHandler();
