@@ -2,6 +2,7 @@ package com.stephnoutsa.cuib;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -12,12 +13,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.stephnoutsa.cuib.models.Student;
@@ -25,6 +28,7 @@ import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,62 +81,73 @@ public class Timetable extends AppCompatActivity {
 
             CuibService cuibService = retrofitHandler.create();
 
-            Call<com.stephnoutsa.cuib.models.Timetable> call = cuibService.getTimetable(department, level);
-            call.clone().enqueue(new Callback<com.stephnoutsa.cuib.models.Timetable>() {
-                @Override
-                public void onResponse(Call<com.stephnoutsa.cuib.models.Timetable> call, Response<com.stephnoutsa.cuib.models.Timetable> response) {
-                    int statusCode = response.code();
-                    if (statusCode == 200) {
-                        com.stephnoutsa.cuib.models.Timetable t = response.body();
+            try {
+                Call<com.stephnoutsa.cuib.models.Timetable> call = cuibService.getTimetable(URLEncoder.encode(department, "UTF-8"), level);
+                call.clone().enqueue(new Callback<com.stephnoutsa.cuib.models.Timetable>() {
+                    @Override
+                    public void onResponse(Call<com.stephnoutsa.cuib.models.Timetable> call, Response<com.stephnoutsa.cuib.models.Timetable> response) {
+                        int statusCode = response.code();
+                        if (statusCode == 200) {
+                            com.stephnoutsa.cuib.models.Timetable t = response.body();
 
-                        String school = t.getSchool();
-                        String dept = t.getDepartment();
-                        String level = t.getLevel();
-                        timetable = t.getUrl();
+                            String school = t.getSchool();
+                            String dept = t.getDepartment();
+                            String level = t.getLevel();
+                            timetable = t.getUrl();
 
-                        if (timetable != null) {
-                            // Display the timetable image
-                            Target target = new Target() {
-                                @Override
-                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                    downloadText.setText(R.string.download_text);
+                            if (timetable != null) {
+                                // Display the timetable image
+                                Target target = new Target() {
+                                    @Override
+                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        downloadText.setText(R.string.download_text);
 
-                                    ttImage.setImageBitmap(bitmap);
-                                }
+                                        ttImage.setImageBitmap(bitmap);
 
-                                @Override
-                                public void onBitmapFailed(Drawable errorDrawable) {
-                                    noTimetableIcon.setVisibility(View.VISIBLE);
-                                    noTimetable.setVisibility(View.VISIBLE);
-                                }
+                                        ttImage.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                onClickTtImage();
+                                            }
+                                        });
+                                    }
 
-                                @Override
-                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                    @Override
+                                    public void onBitmapFailed(Drawable errorDrawable) {
+                                        noTimetableIcon.setVisibility(View.VISIBLE);
+                                        noTimetable.setVisibility(View.VISIBLE);
+                                    }
 
-                                }
-                            };
-                            Picasso.with(context).
-                                    load(timetable).
-                                    into(target);
-                        } else {
-                            // Display placeholders
-                            noTimetableIcon.setVisibility(View.VISIBLE);
-                            noTimetable.setVisibility(View.VISIBLE);
+                                    @Override
+                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                    }
+                                };
+                                Picasso.with(context).
+                                        load(timetable).
+                                        into(target);
+                            } else {
+                                // Display placeholders
+                                noTimetableIcon.setVisibility(View.VISIBLE);
+                                noTimetable.setVisibility(View.VISIBLE);
+                            }
+
+                            // Remove progress bar
+                            progressBar.setVisibility(View.GONE);
+
+                            // Add timetable to local database
+                            dbHandler.addTimetable(school, dept, level, timetable);
                         }
-
-                        // Remove progress bar
-                        progressBar.setVisibility(View.GONE);
-
-                        // Add timetable to local database
-                        dbHandler.addTimetable(school, dept, level, timetable);
                     }
-                }
 
-                @Override
-                public void onFailure(Call<com.stephnoutsa.cuib.models.Timetable> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<com.stephnoutsa.cuib.models.Timetable> call, Throwable t) {
 
-                }
-            });
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
 
@@ -145,29 +160,34 @@ public class Timetable extends AppCompatActivity {
         }
     }
 
-    public void onClickTtImage(View view) {
+    // Save image to device
+    public void onClickTtImage() {
         if (timetable != null) {
-            /** Download the timetable if available*/
-            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse(timetable);
+            try {
+                /** Download the timetable if available*/
+                downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(timetable);
 
-            // Set the file name
-            Date date = new Date();
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy_hh-mm-ss_a", Locale.ENGLISH);
-            String time = df.format(date.getTime());
-            String filename = getString(R.string.tt_filename) + time;
+                // Set the file name
+                Date date = new Date();
+                DateFormat df = new SimpleDateFormat("dd-MM-yyyy_hh-mm-ss_a", Locale.ENGLISH);
+                String time = df.format(date.getTime());
+                String filename = time + "_" + getString(R.string.tt_filename);
 
-            // Set download settings
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setTitle(getString(R.string.tt_download_title)).
-                    setDescription(getString(R.string.tt_download_desc)).
-                    setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).
-                    //setVisibleInDownloadsUi(true).
-                    //setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI).
-                            setDestinationUri(Uri.parse(Environment.DIRECTORY_DOWNLOADS + "/" + filename));
+                // Set download settings
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setTitle(getString(R.string.tt_download_title)).
+                        setDescription(getString(R.string.tt_download_desc)).
+                        setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).
+                        //setVisibleInDownloadsUi(true).
+                        //setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI).
+                        setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
 
-            // Add download to queue
-            downloadManager.enqueue(request);
+                // Add download to queue
+                downloadManager.enqueue(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(this, getString(R.string.no_timetable), Toast.LENGTH_SHORT).show();
         }
