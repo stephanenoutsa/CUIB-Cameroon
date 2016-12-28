@@ -1,6 +1,7 @@
 package com.stephnoutsa.cuib.utils;
 
 import com.stephnoutsa.cuib.models.Course;
+import com.stephnoutsa.cuib.models.Results;
 import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Lecturer;
 import com.stephnoutsa.cuib.models.Student;
@@ -53,4 +54,9 @@ public interface CuibService {
     @POST("tokens")
     Call<Token> addToken(@Body String token);
     // End of methods for tokens
+
+    // Start of methods for results
+    @GET("results/{year}/{semester}/{matricule}")
+    Call<Results> getResults(@Path("year") String year, @Path("semester") String semester, @Path("matricule") String matricule);
+    // End of methods for results
 }
