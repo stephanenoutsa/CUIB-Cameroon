@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_results"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.stephnoutsa.cuib.Results"
+    tools:showIn="@layout/activity_results">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/select_results"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/selectResults" />
+
+            <TextView
+                android:id="@+id/yearLabel"
+                android:labelFor="@+id/yearField"
+                android:text="@string/year_label"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/yearField"
+                android:ems="10"
+                android:hint="@string/year_hint"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorPrimaryLight"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/semesterLabel"
+                android:layout_marginTop="20dp"
+                android:labelFor="@+id/semSpinner"
+                android:text="@string/semester_label"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/semSpinner"
+                android:popupBackground="@color/colorPrimary"
+                android:dropDownSelector="@color/colorPrimaryLight"
+                android:dropDownWidth="wrap_content"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/get_results"
+                android:textColor="@android:color/white"
+                android:id="@+id/getResults"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary"
+                android:onClick="onClickGet" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

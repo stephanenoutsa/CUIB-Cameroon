@@ -206,4 +206,24 @@
     <!-- Start of SingleLecturer activity literature -->
     <string name="title_activity_single_lecturer">Lecturer</string>
     <!-- End of SingleLecturer activity literature -->
+
+    <!-- Start of Results activity literature -->
+    <string name="title_activity_results">Results</string>
+    <string name="select_results"><b>Select results to download</b></string>
+    <string name="year_label">Academic Year:</string>
+    <string name="year_hint">e.g. 2016/2017</string>
+    <string name="semester_label">Semester:</string>
+    <string-array name="semester_options">
+        <item>1</item>
+        <item>2</item>
+        <item>Resit</item>
+    </string-array>
+    <string name="get_results">Get Results</string>
+    <string name="invalid_year">Invalid year</string>
+    <string name="rs_download_title">Results</string>
+    <string name="rs_download_desc">Results downloading</string>
+    <string name="rs_filename">results.png</string>
+    <string name="not_found">The requested resource could not be found</string>
+    <string name="no_results">The requested resource is not available</string>
+    <!-- End of Results activity literature -->
 </resources>
