@@ -142,7 +142,7 @@ public class Timetable extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<com.stephnoutsa.cuib.models.Timetable> call, Throwable t) {
-
+                        Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (Exception e) {
