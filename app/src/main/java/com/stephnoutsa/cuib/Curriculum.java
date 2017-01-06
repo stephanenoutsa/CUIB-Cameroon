@@ -33,7 +33,8 @@ public class Curriculum extends AppCompatActivity {
     }
 
     public void onClickResults(View view) {
-
+        Intent i = new Intent(this, Results.class);
+        startActivity(i);
     }
 
 }
