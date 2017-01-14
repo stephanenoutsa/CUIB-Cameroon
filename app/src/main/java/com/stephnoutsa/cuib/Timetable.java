@@ -181,7 +181,10 @@ public class Timetable extends AppCompatActivity {
                         setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).
                         //setVisibleInDownloadsUi(true).
                         //setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI).
-                        setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+                        setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, filename);
+
+                // Allow file to be scanned by MediaScanner
+                request.allowScanningByMediaScanner();
 
                 // Add download to queue
                 downloadManager.enqueue(request);
