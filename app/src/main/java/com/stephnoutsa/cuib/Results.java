@@ -93,13 +93,13 @@ public class Results extends AppCompatActivity {
         String yr = yearField.getText().toString().trim();
 
         String[] semesters = getResources().getStringArray(R.array.semester_options);
-        String semester = semesters[pos];
+        final String semester = semesters[pos];
 
         String matricule = dbHandler.getStudent().getMatricule();
 
         if (yearIsValid(yr)) {
             // Make year url-friendly
-            String year = convertYear(yr);
+            final String year = convertYear(yr);
 
             // Check if student is connected to a network
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -123,7 +123,7 @@ public class Results extends AppCompatActivity {
 
                                 if (results != null) {
                                     // Download the results
-                                    downloadResults();
+                                    downloadResults(year, semester);
                                 } else {
                                     Toast.makeText(context, getString(R.string.not_found), Toast.LENGTH_SHORT).show();
                                 }
@@ -176,7 +176,7 @@ public class Results extends AppCompatActivity {
     }
 
     // Save results to device
-    public void downloadResults() {
+    public void downloadResults(String year, String semester) {
         if (results != null) {
             try {
                 /** Download the results if available*/
@@ -184,10 +184,10 @@ public class Results extends AppCompatActivity {
                 Uri uri = Uri.parse(results);
 
                 // Set the file name
-                Date date = new Date();
+                /*Date date = new Date();
                 DateFormat df = new SimpleDateFormat("dd-MM-yyyy_hh-mm-ss_a", Locale.ENGLISH);
-                String time = df.format(date.getTime());
-                String filename = time + "_" + getString(R.string.rs_filename);
+                String time = df.format(date.getTime());*/
+                String filename = getString(R.string.rs_filename) + "_" + year + "_s" + semester + ".png" ;
 
                 // Set download settings
                 DownloadManager.Request request = new DownloadManager.Request(uri);

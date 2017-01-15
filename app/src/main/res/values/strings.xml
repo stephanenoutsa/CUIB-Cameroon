@@ -221,8 +221,8 @@
     <string name="get_results">Get Results</string>
     <string name="invalid_year">Invalid year</string>
     <string name="rs_download_title">Results</string>
-    <string name="rs_download_desc">Results downloading</string>
-    <string name="rs_filename">results.png</string>
+    <string name="rs_download_desc">Exam Results</string>
+    <string name="rs_filename">results</string>
     <string name="not_found">The requested resource could not be found</string>
     <string name="no_results">The requested resource is not available</string>
     <!-- End of Results activity literature -->
