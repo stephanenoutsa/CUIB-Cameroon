@@ -12,8 +12,17 @@ public class Token {
     @SerializedName("id")
     int id;
 
-    @SerializedName("name")
-    String name;
+    @SerializedName("value")
+    String value;
+
+    @SerializedName("school")
+    String school;
+
+    @SerializedName("department")
+    String department;
+
+    @SerializedName("level")
+    String level;
 
     // Empty constructor
     public Token() {
@@ -21,17 +30,23 @@ public class Token {
     }
 
     // Constructor
-    public Token(int id, String name) {
+    public Token(int id, String value, String school, String department, String level) {
         this.id = id;
-        this.name = name;
+        this.value = value;
+        this.school = school;
+        this.department = department;
+        this.level = level;
     }
 
     // Constructor
-    public Token(String name) {
-        this.name = name;
+    public Token(String value, String school, String department, String level) {
+        this.value = value;
+        this.school = school;
+        this.department = department;
+        this.level = level;
     }
 
-    // Getter and setter methods
+    // Getter and Setter methods
     public int getId() {
         return id;
     }
@@ -40,11 +55,36 @@ public class Token {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setValue(String value) {
+        this.value = value;
     }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
 }

@@ -52,7 +52,7 @@ public interface CuibService {
 
     // Start of methods for tokens
     @POST("tokens")
-    Call<Token> addToken(@Body String token);
+    Call<Token> addToken(@Body Token token);
     // End of methods for tokens
 
     // Start of methods for results

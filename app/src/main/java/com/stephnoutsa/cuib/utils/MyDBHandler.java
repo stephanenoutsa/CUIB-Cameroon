@@ -10,6 +10,7 @@ import com.stephnoutsa.cuib.models.Course;
 import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Message;
 import com.stephnoutsa.cuib.models.Student;
+import com.stephnoutsa.cuib.models.Token;
 import com.stephnoutsa.cuib.models.User;
 
 import java.util.ArrayList;
@@ -72,6 +73,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String MSG_COLUMN_TIME = "time";
     private static final String MSG_COLUMN_TITLE = "title";
     private static final String MSG_COLUMN_BODY = "body";
+
+    private static final String TABLE_TOKEN = "token";
+    private static final String TK_COLUMN_ID = "_tkid";
+    private static final String TK_COLUMN_VALUE = "value";
+    private static final String TK_COLUMN_SCHOOL = "school";
+    private static final String TK_COLUMN_DEPT = "department";
+    private static final String TK_COLUMN_LEVEL = "level";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -158,6 +166,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         // Add placeholder values for Course table
         addMessage("null", "null", "null", "null");
+
+        String token = "CREATE TABLE " + TABLE_TOKEN + "(" +
+                TK_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
+                TK_COLUMN_VALUE + " TEXT " + ", " +
+                TK_COLUMN_SCHOOL + " TEXT " + ", " +
+                TK_COLUMN_DEPT + " TEXT " + ", " +
+                TK_COLUMN_LEVEL + " TEXT " +
+                ")";
+        db.execSQL(token);
+
+        // Add placeholder values for Token table
+        addToken("null", "null", "null", "null");
     }
 
     @Override
@@ -175,6 +195,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE + ";");
+        onCreate(db);
+
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TOKEN + ";");
         onCreate(db);
     }
 
@@ -724,6 +747,64 @@ public class MyDBHandler extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Add token to Token table
+    public void addToken(String value, String school, String dept, String level) {
+        ContentValues values = new ContentValues();
+
+        values.put(TK_COLUMN_VALUE, value);
+        values.put(TK_COLUMN_SCHOOL, school);
+        values.put(TK_COLUMN_DEPT, dept);
+        values.put(TK_COLUMN_LEVEL, level);
+
+        if(db == null) {
+            db = getWritableDatabase();
+        }
+
+        db.insert(TABLE_TOKEN, null, values);
+    }
+
+    // Get token from Token table
+    public Token getToken() {
+        if (db == null)
+            db = getReadableDatabase();
+
+        Cursor c = db.query(TABLE_TOKEN,
+                new String[] {TK_COLUMN_ID, TK_COLUMN_VALUE, TK_COLUMN_SCHOOL, TK_COLUMN_DEPT, TK_COLUMN_LEVEL},
+                TK_COLUMN_ID + "=?", new String[] {String.valueOf(1)}, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        Token token = new Token();
+
+        token.setId(1);
+        token.setValue(c.getString(1));
+        token.setSchool(c.getString(2));
+        token.setDepartment(c.getString(3));
+        token.setLevel(c.getString(4));
+
+        try {
+            return token;
+        } finally {
+            c.close();
+        }
+    }
+
+    // Update token in Token table
+    public void updateToken(String value, String school, String dept, String level) {
+        ContentValues values = new ContentValues();
+
+        values.put(TK_COLUMN_VALUE, value);
+        values.put(TK_COLUMN_SCHOOL, school);
+        values.put(TK_COLUMN_DEPT, dept);
+        values.put(TK_COLUMN_LEVEL, level);
+
+        if (db == null)
+            db = getWritableDatabase();
+
+        db.update(TABLE_TOKEN, values, TK_COLUMN_ID + "= 1", null);
     }
 
     // Convert array to string

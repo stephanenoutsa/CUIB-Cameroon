@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.google.common.hash.Hashing;
 import com.stephnoutsa.cuib.models.Student;
+import com.stephnoutsa.cuib.models.Token;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
+import com.stephnoutsa.cuib.utils.MyFirebaseIDService;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
 import java.nio.charset.Charset;
@@ -118,6 +120,17 @@ public class StudentLogin extends AppCompatActivity {
 
                                 // Update subscribed status
                                 dbHandler.updateSubscribed("yes");
+
+                                // Get token from database, update it and send to remote server
+                                Token t = dbHandler.getToken();
+                                String val = t.getValue();
+                                dbHandler.updateToken(val, sch, dpt, lvl);
+                                Token token = new Token(val, sch, dpt, lvl);
+
+                                if (!val.equals("null")) {
+                                    MyFirebaseIDService firebaseIDService = new MyFirebaseIDService();
+                                    firebaseIDService.sendRegistrationToServer(context, token);
+                                }
 
                                 // Return to Home activity
                                 Intent i = new Intent(context, Home.class);

@@ -17,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.hash.Hashing;
+import com.stephnoutsa.cuib.models.Token;
 import com.stephnoutsa.cuib.models.User;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
+import com.stephnoutsa.cuib.utils.MyFirebaseIDService;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
 import java.nio.charset.Charset;
@@ -181,6 +183,15 @@ public class SignUp extends AppCompatActivity {
 
                                 // Notify user that the account has been added
                                 Toast.makeText(context, getString(R.string.user_added), Toast.LENGTH_SHORT).show();
+
+                                // Get token from database and send to remote server
+                                Token token = dbHandler.getToken();
+                                String val = token.getValue();
+
+                                if (!val.equals("null")) {
+                                    MyFirebaseIDService firebaseIDService = new MyFirebaseIDService();
+                                    firebaseIDService.sendRegistrationToServer(context, token);
+                                }
 
                                 // Return to Home activity
                                 Intent i = new Intent(context, Home.class);
