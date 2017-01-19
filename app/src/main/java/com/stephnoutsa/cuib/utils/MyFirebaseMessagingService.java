@@ -39,7 +39,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String sender = getString(R.string.school_name);
         long lTime = remoteMessage.getSentTime();
         Date date = new Date();
-        date.setTime(lTime);
+        // If the remote is correctly set, use it as sent time
+        if (lTime != 0) {
+            date.setTime(lTime);
+        }
         String time = sdf.format(date);
         /*String title = remoteMessage.getNotification().getTitle();
         String message = remoteMessage.getNotification().getBody();*/
