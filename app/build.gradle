@@ -41,6 +41,7 @@ dependencies {
     // Add Firebase dependencies
     compile 'com.google.firebase:firebase-core:10.0.0'
     compile 'com.google.firebase:firebase-messaging:10.0.0'
+    compile 'com.google.firebase:firebase-appindexing:10.0.0'
 
     // Add Mockito dependencies for testing
     testCompile 'org.mockito:mockito-core:1.10.19'
