@@ -1,6 +1,7 @@
 package com.stephnoutsa.cuib.utils;
 
 import com.stephnoutsa.cuib.models.Course;
+import com.stephnoutsa.cuib.models.MoMoResponse;
 import com.stephnoutsa.cuib.models.Results;
 import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Lecturer;
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by stephnoutsa on 10/12/16.
@@ -59,4 +61,26 @@ public interface CuibService {
     @GET("results/{year}/{semester}/{matricule}")
     Call<Results> getResults(@Path("year") String year, @Path("semester") String semester, @Path("matricule") String matricule);
     // End of methods for results
+
+    // Start of methods for MoMo
+    @GET("transactionRequest.xhtml")
+    Call<MoMoResponse> momoPayment(
+            @Query("idbouton") String idBouton,
+            @Query("typebouton") String typeBouton,
+            @Query("_amount") String amount,
+            @Query("_tel") String phone,
+            @Query("_cIP") String cIP,
+            @Query("_email") String email
+    );
+
+    @GET("transactionRequest.xhtml")
+    Call<MoMoResponse> momoRefund(
+            @Query("idbouton") String idBouton,
+            @Query("typebouton") String typeBouton,
+            @Query("_amount") String amount,
+            @Query("_tel") String phone,
+            @Query("_email") String email,
+            @Query("_cIP") String cIP
+    );
+    // End of methods for MoMo
 }
