@@ -196,6 +196,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.stephnoutsa.cuib.Curriculum" />
         </activity>
+        <activity
+            android:name=".Transaction"
+            android:label="@string/title_activity_transaction"
+            android:parentActivityName=".Results"
+            android:theme="@style/Theme.Transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.stephnoutsa.cuib.Results" />
+        </activity>
     </application>
 
 </manifest>

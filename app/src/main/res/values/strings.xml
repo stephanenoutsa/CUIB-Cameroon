@@ -226,4 +226,22 @@
     <string name="not_found">The requested resource could not be found</string>
     <string name="no_results">The requested resource is not available</string>
     <!-- End of Results activity literature -->
+
+    <!-- Start of Transaction activity literature -->
+    <string name="title_activity_transaction">Transaction</string>
+    <string name="enter_phone" formatted="false">
+        To download your results, enter your MTN phone number below.\n
+        (A fee of 600FCFA will be deducted from your Mobile Money account)
+    </string>
+    <string name="mtn_hint">e.g. <b>67</b>0000000</string>
+    <string name="pay">Pay</string>
+    <string name="invalid_mtn_number">Not an MTN number</string>
+    <string name="momo_url">https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/</string>
+    <string name="momo_amount">50</string>
+    <string name="momo_email">erncoolin@yahoo.com</string>
+    <string name="momo_pw">password</string>
+    <string name="trans_failed">There was an error processing the transaction</string>
+    <string name="retry_title">Retry</string>
+    <string name="retry_msg">Retry downloading results?</string>
+    <!-- End of Transaction activity literature -->
 </resources>
