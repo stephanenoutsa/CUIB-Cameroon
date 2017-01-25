@@ -1,6 +1,7 @@
 package com.stephnoutsa.cuib;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -95,8 +96,14 @@ public class Transaction extends AppCompatActivity {
                                     switch(code) {
                                         case "01":
                                             Toast.makeText(context, desc, Toast.LENGTH_SHORT).show();
+
                                             // Fetch the results
                                             GetResults.getResults(context, year, semester, matricule);
+
+                                            // Return to Results activity activity
+                                            Intent i = new Intent(context, Home.class);
+                                            startActivity(i);
+
                                             break;
 
                                         case "100":
