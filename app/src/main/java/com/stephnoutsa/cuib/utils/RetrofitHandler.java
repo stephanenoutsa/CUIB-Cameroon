@@ -1,5 +1,8 @@
 package com.stephnoutsa.cuib.utils;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -14,11 +17,16 @@ public class RetrofitHandler {
     //private String BASE_URL = "http://10.0.2.2:8080/cuib/webapi/"; // Localhost value is 10.0.2.2
 
     private Retrofit retrofit ;
+    final private OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .readTimeout(5, TimeUnit.MINUTES)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build();
 
     public RetrofitHandler() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
     }
 
@@ -28,6 +36,7 @@ public class RetrofitHandler {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
     }
 
