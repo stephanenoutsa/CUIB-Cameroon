@@ -74,6 +74,7 @@ public class GetResults {
                     @Override
                     public void onFailure(Call<com.stephnoutsa.cuib.models.Results> call, Throwable t) {
                         Toast.makeText(c, c.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                        getResults(c, year, semester, matricule);
                     }
                 });
             } catch (Exception e) {
