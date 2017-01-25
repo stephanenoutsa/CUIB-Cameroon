@@ -1,12 +1,16 @@
 package com.stephnoutsa.cuib.utils;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -27,6 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     NotificationCompat.Builder notification;
     SimpleDateFormat sdf;
     Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+    String NOTIFICATION_GROUP = "Messages";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -52,8 +57,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Build the notification
         notification.setSmallIcon(R.drawable.logo); // Sets icon to be displayed
+        notification.setColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
         notification.setContentTitle(title);
         notification.setSound(alarmSound);
+        notification.setGroup(NOTIFICATION_GROUP); // Used to group notifications
         Intent i = new Intent(this, Messages.class);
 
         // Preserve navigation when launching Messages activity
@@ -81,6 +88,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Add the message to the database
         dbHandler.addMessage(sender, time, title, message);
+
+        // Create the summary notification
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        Notification summary = new NotificationCompat.Builder(this)
+                .setContentTitle(getString(R.string.msg_summary))
+                .setSmallIcon(R.drawable.logo)
+                .setLargeIcon(largeIcon)
+                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .setBigContentTitle(getString(R.string.msg_summary))
+                        .setSummaryText(getString(R.string.app_name)))
+                .setGroup(NOTIFICATION_GROUP)
+                .setGroupSummary(true)
+                .build();
+
+        nm.notify(1, summary);
     }
 
     // Trim notification ticker text

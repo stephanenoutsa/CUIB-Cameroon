@@ -179,6 +179,7 @@
 
     <!-- Start of Messages activity literature -->
     <string name="title_activity_messages">Messages</string>
+    <string name="msg_summary">New Messages</string>
     <string name="msg_sender_placeholder"><i>Catholic University Institute of Buea</i></string>
     <string name="msg_title_placeholder"><b>Title Placeholder</b></string>
     <string name="msg_time_placeholder">24/11/2016 15:02 PM</string>
@@ -237,7 +238,7 @@
     <string name="pay">Pay</string>
     <string name="invalid_mtn_number">Not an MTN number</string>
     <string name="momo_url">https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/</string>
-    <string name="momo_amount">50</string>
+    <string name="momo_amount">1</string>
     <string name="momo_email">erncoolin@yahoo.com</string>
     <string name="momo_pw">password</string>
     <string name="trans_failed">There was an error processing the transaction</string>
