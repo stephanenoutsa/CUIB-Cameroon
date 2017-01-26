@@ -13,10 +13,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.stephnoutsa.cuib.models.MoMoResponse;
+import com.stephnoutsa.cuib.models.Payment;
+import com.stephnoutsa.cuib.utils.AddPayment;
 import com.stephnoutsa.cuib.utils.CuibService;
 import com.stephnoutsa.cuib.utils.GetResults;
 import com.stephnoutsa.cuib.utils.MyDBHandler;
 import com.stephnoutsa.cuib.utils.RetrofitHandler;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +31,7 @@ public class Transaction extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+    SimpleDateFormat sdf;
     ProgressBar progressBar;
     EditText phoneField;
     String year = "";
@@ -99,6 +105,17 @@ public class Transaction extends AppCompatActivity {
 
                                             // Fetch the results
                                             GetResults.getResults(context, year, semester, matricule);
+
+                                            // Create Payment object
+                                            Date d = new Date();
+                                            String date = sdf.format(d);
+                                            Payment payment = new Payment(
+                                                    date,
+                                                    getString(R.string.momo_amount),
+                                                    getString(R.string.app_name));
+
+                                            // Add payment to remote server and local database
+                                            AddPayment.addPayment(context, payment);
 
                                             // Return to Results activity activity
                                             Intent i = new Intent(context, Home.class);
