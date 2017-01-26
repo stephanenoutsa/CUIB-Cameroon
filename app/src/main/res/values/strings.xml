@@ -252,6 +252,13 @@
     <string name="delete_payment">You are about to delete this transaction</string>
     <string name="type_momo">MTN Mobile Money</string>
     <string name="type_om">Orange Money</string>
-    <string name="title_activity_single_payment">Payment</string>
     <!-- End of Payments activity literature -->
+
+    <!-- Start of SinglePayment activity literature -->
+    <string name="title_activity_single_payment">Payment</string>
+    <string name="type_label"><b>Type:</b></string>
+    <string name="date_label"><b>Date:</b></string>
+    <string name="amount_label"><b>Amount:</b></string>
+    <string name="amount_suffix">FCFA</string>
+    <!-- End of SinglePayment activity literature -->
 </resources>
