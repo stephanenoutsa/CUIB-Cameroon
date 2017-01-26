@@ -188,7 +188,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         addToken("null", "null", "null", "null");
 
         String payment = "CREATE TABLE " + TABLE_PAYMENT + "(" +
-                PAY_COLUMN_ID + " INTEGER PRIMART KEY AUTOINCREMENT " + ", " +
+                PAY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
                 PAY_COLUMN_DATE + " TEXT " + ", " +
                 PAY_COLUMN_AMT + " TEXT " + ", " +
                 PAY_COLUMN_TYPE + " TEXT " + ", " +
