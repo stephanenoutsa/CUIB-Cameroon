@@ -63,63 +63,63 @@ public class Messages extends AppCompatActivity {
                 // Remove placeholder message
                 messageList.remove(0);
 
-                // Display toast if there are no messages
+                // Display icon and text if there are no messages
                 if (messageList.isEmpty()) {
                     noMessagesIcon.setVisibility(View.VISIBLE);
                     noMessages.setVisibility(View.VISIBLE);
+                } else {
+                    // Reverse the order of the messages
+                    Collections.reverse(messageList);
+
+                    listAdapter = new MessageAdapter(context, messageList);
+
+                    listView = (ListView) findViewById(R.id.messageList);
+                    listView.setAdapter(listAdapter);
+
+                    // Action when user presses a list item
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Message message = (Message) parent.getItemAtPosition(position);
+                            String mid = "" + message.getId();
+                            Intent i = new Intent(context, SingleMessage.class);
+                            i.putExtra("id", mid);
+                            startActivity(i);
+                        }
+                    });
+
+                    // Action when user long presses a list item
+                    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                            Message message = (Message) parent.getItemAtPosition(position);
+                            final int mid = message.getId();
+
+                            new AlertDialog.Builder(context).
+                                    setIcon(android.R.drawable.ic_menu_delete).
+                                    setTitle(getString(R.string.delete_title)).
+                                    setMessage(getString(R.string.delete_msg)).
+                                    setPositiveButton(getString(R.string.delete_ok), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int which) {
+                                            dbHandler.deleteMessage(mid);
+                                            Intent i = new Intent(Messages.this, Messages.class);
+                                            finish();
+                                            overridePendingTransition(0, 0);
+                                            startActivity(i);
+                                            overridePendingTransition(0, 0);
+                                        }
+                                    }).setNegativeButton(getString(R.string.delete_cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+
+                                }
+                            }).show();
+
+                            return true;
+                        }
+                    });
                 }
-
-                // Reverse the order of the messages
-                Collections.reverse(messageList);
-
-                listAdapter = new MessageAdapter(context, messageList);
-
-                listView = (ListView) findViewById(R.id.messageList);
-                listView.setAdapter(listAdapter);
-
-                // Action when user presses a list item
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Message message = (Message) parent.getItemAtPosition(position);
-                        String mid = "" + message.getId();
-                        Intent i = new Intent(context, SingleMessage.class);
-                        i.putExtra("id", mid);
-                        startActivity(i);
-                    }
-                });
-
-                // Action when user long presses a list item
-                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        Message message = (Message) parent.getItemAtPosition(position);
-                        final int mid = message.getId();
-
-                        new AlertDialog.Builder(context).
-                                setIcon(android.R.drawable.ic_menu_delete).
-                                setTitle(getString(R.string.delete_title)).
-                                setMessage(getString(R.string.delete_msg)).
-                                setPositiveButton(getString(R.string.delete_ok), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int which) {
-                                        dbHandler.deleteMessage(mid);
-                                        Intent i = new Intent(Messages.this, Messages.class);
-                                        finish();
-                                        overridePendingTransition(0, 0);
-                                        startActivity(i);
-                                        overridePendingTransition(0, 0);
-                                    }
-                                }).setNegativeButton(getString(R.string.delete_cancel), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int which) {
-
-                            }
-                        }).show();
-
-                        return true;
-                    }
-                });
             }
         };
 
