@@ -2,6 +2,7 @@ package com.stephnoutsa.cuib.utils;
 
 import com.stephnoutsa.cuib.models.Course;
 import com.stephnoutsa.cuib.models.MoMoResponse;
+import com.stephnoutsa.cuib.models.Payment;
 import com.stephnoutsa.cuib.models.Results;
 import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Lecturer;
@@ -83,4 +84,9 @@ public interface CuibService {
             @Query("_cIP") String cIP
     );
     // End of methods for MoMo
+
+    // Start of methods for Payments
+    @POST("payments")
+    Call<Payment> addPayment(@Body Payment payment);
+    // End of methods for Payments
 }
