@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.stephnoutsa.cuib.models.Course;
+import com.stephnoutsa.cuib.models.Payment;
 import com.stephnoutsa.cuib.models.Timetable;
 import com.stephnoutsa.cuib.models.Message;
 import com.stephnoutsa.cuib.models.Student;
@@ -80,6 +81,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String TK_COLUMN_SCHOOL = "school";
     private static final String TK_COLUMN_DEPT = "department";
     private static final String TK_COLUMN_LEVEL = "level";
+
+    private static final String TABLE_PAYMENT = "payment";
+    private static final String PAY_COLUMN_ID = "_pid";
+    private static final String PAY_COLUMN_DATE = "date";
+    private static final String PAY_COLUMN_AMT = "amount";
+    private static final String PAY_COLUMN_SCHOOL = "school";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -178,6 +185,17 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         // Add placeholder values for Token table
         addToken("null", "null", "null", "null");
+
+        String payment = "CREATE TABLE " + TABLE_PAYMENT + "(" +
+                PAY_COLUMN_ID + " INTEGER PRIMART KEY AUTOINCREMENT " + ", " +
+                PAY_COLUMN_DATE + " TEXT " + ", " +
+                PAY_COLUMN_AMT + " TEXT " + ", " +
+                PAY_COLUMN_SCHOOL + " TEXT " +
+                ")";
+        db.execSQL(payment);
+
+        // Add placeholder values for Payment table
+        addPayment("null", "null", "null");
     }
 
     @Override
@@ -805,6 +823,92 @@ public class MyDBHandler extends SQLiteOpenHelper {
             db = getWritableDatabase();
 
         db.update(TABLE_TOKEN, values, TK_COLUMN_ID + "= 1", null);
+    }
+
+    // Add payment to Payment table
+    public void addPayment(String date, String amount, String school) {
+        ContentValues values = new ContentValues();
+
+        values.put(PAY_COLUMN_DATE, date);
+        values.put(PAY_COLUMN_AMT, amount);
+        values.put(PAY_COLUMN_SCHOOL, school);
+
+        if (db == null)
+            db = getWritableDatabase();
+
+        db.insert(TABLE_PAYMENT, null, values);
+    }
+
+    // Get all payments from Payment table
+    public List<Payment> getAllPayments() {
+        if (db == null)
+            db = getReadableDatabase();
+
+        List<Payment> payments = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_PAYMENT + ";";
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c == null)
+            return null;
+
+        while (c.moveToNext()) {
+            Payment p = new Payment();
+
+            p.setId(Integer.parseInt(c.getString(0)));
+            p.setDate(c.getString(1));
+            p.setAmount(c.getString(2));
+            p.setSchool(c.getString(3));
+
+            payments.add(p);
+        }
+
+        try {
+            return payments;
+        } finally {
+            c.close();
+        }
+    }
+
+    // Get single payment from Payment table
+    public Payment getPayment(int id) {
+        if (db == null)
+            db = getReadableDatabase();
+
+        Cursor c = db.query(TABLE_PAYMENT,
+                new String[] {PAY_COLUMN_ID, PAY_COLUMN_DATE, PAY_COLUMN_AMT, PAY_COLUMN_SCHOOL},
+                PAY_COLUMN_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        Payment payment = new Payment();
+
+        payment.setId(id);
+        payment.setDate(c.getString(1));
+        payment.setAmount(c.getString(2));
+        payment.setSchool(c.getString(3));
+
+        try {
+            return payment;
+        } finally {
+            c.close();
+        }
+    }
+
+    // Delete payment from Payment table
+    public void deletePayment(int id) {
+        if (db == null)
+            db = getWritableDatabase();
+
+        String query = "DELETE FROM " + TABLE_PAYMENT + " WHERE " + PAY_COLUMN_ID + " = " + id + ";";
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Convert array to string
