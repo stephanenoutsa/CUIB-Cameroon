@@ -68,13 +68,42 @@ public class GetResults {
                                     }
                                 }).show();
                             }
+                        } else {
+                            Toast.makeText(c, c.getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
+                            new AlertDialog.Builder(c).
+                                    setTitle(c.getString(R.string.retry_title)).
+                                    setMessage(c.getString(R.string.retry_msg)).
+                                    setPositiveButton(c.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int which) {
+                                            getResults(c, year, semester, matricule);
+                                        }
+                                    }).setNegativeButton(c.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+
+                                }
+                            }).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<com.stephnoutsa.cuib.models.Results> call, Throwable t) {
                         Toast.makeText(c, c.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
-                        getResults(c, year, semester, matricule);
+                        new AlertDialog.Builder(c).
+                                setTitle(c.getString(R.string.retry_title)).
+                                setMessage(c.getString(R.string.retry_msg)).
+                                setPositiveButton(c.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
+                                        getResults(c, year, semester, matricule);
+                                    }
+                                }).setNegativeButton(c.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+
+                            }
+                        }).show();
                     }
                 });
             } catch (Exception e) {
