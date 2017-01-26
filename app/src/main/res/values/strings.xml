@@ -245,4 +245,13 @@
     <string name="retry_title">Retry</string>
     <string name="retry_msg">Retry downloading results?</string>
     <!-- End of Transaction activity literature -->
+
+    <!-- Start of Payments activity literature -->
+    <string name="title_activity_payments">Payments</string>
+    <string name="no_payments">Payments history is empty</string>
+    <string name="delete_payment">You are about to delete this transaction</string>
+    <string name="type_momo">MTN Mobile Money</string>
+    <string name="type_om">Orange Money</string>
+    <string name="title_activity_single_payment">Payment</string>
+    <!-- End of Payments activity literature -->
 </resources>
