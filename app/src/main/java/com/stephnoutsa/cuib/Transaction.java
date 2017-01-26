@@ -112,6 +112,7 @@ public class Transaction extends AppCompatActivity {
                                             Payment payment = new Payment(
                                                     date,
                                                     getString(R.string.momo_amount),
+                                                    getString(R.string.type_momo),
                                                     getString(R.string.app_name));
 
                                             // Add payment to remote server and local database

@@ -86,6 +86,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final String PAY_COLUMN_ID = "_pid";
     private static final String PAY_COLUMN_DATE = "date";
     private static final String PAY_COLUMN_AMT = "amount";
+    private static final String PAY_COLUMN_TYPE = "type";
     private static final String PAY_COLUMN_SCHOOL = "school";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -190,12 +191,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 PAY_COLUMN_ID + " INTEGER PRIMART KEY AUTOINCREMENT " + ", " +
                 PAY_COLUMN_DATE + " TEXT " + ", " +
                 PAY_COLUMN_AMT + " TEXT " + ", " +
+                PAY_COLUMN_TYPE + " TEXT " + ", " +
                 PAY_COLUMN_SCHOOL + " TEXT " +
                 ")";
         db.execSQL(payment);
 
         // Add placeholder values for Payment table
-        addPayment("null", "null", "null");
+        addPayment("null", "null", "null", "null");
     }
 
     @Override
@@ -826,11 +828,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // Add payment to Payment table
-    public void addPayment(String date, String amount, String school) {
+    public void addPayment(String date, String amount, String type, String school) {
         ContentValues values = new ContentValues();
 
         values.put(PAY_COLUMN_DATE, date);
         values.put(PAY_COLUMN_AMT, amount);
+        values.put(PAY_COLUMN_TYPE, type);
         values.put(PAY_COLUMN_SCHOOL, school);
 
         if (db == null)
@@ -859,7 +862,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
             p.setId(Integer.parseInt(c.getString(0)));
             p.setDate(c.getString(1));
             p.setAmount(c.getString(2));
-            p.setSchool(c.getString(3));
+            p.setType(c.getString(3));
+            p.setSchool(c.getString(4));
 
             payments.add(p);
         }
@@ -877,7 +881,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             db = getReadableDatabase();
 
         Cursor c = db.query(TABLE_PAYMENT,
-                new String[] {PAY_COLUMN_ID, PAY_COLUMN_DATE, PAY_COLUMN_AMT, PAY_COLUMN_SCHOOL},
+                new String[] {PAY_COLUMN_ID, PAY_COLUMN_DATE, PAY_COLUMN_AMT, PAY_COLUMN_TYPE, PAY_COLUMN_SCHOOL},
                 PAY_COLUMN_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
 
         if(c != null)
@@ -888,7 +892,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         payment.setId(id);
         payment.setDate(c.getString(1));
         payment.setAmount(c.getString(2));
-        payment.setSchool(c.getString(3));
+        payment.setType(c.getString(3));
+        payment.setSchool(c.getString(4));
 
         try {
             return payment;

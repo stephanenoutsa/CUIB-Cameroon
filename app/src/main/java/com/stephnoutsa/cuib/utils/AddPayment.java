@@ -42,7 +42,7 @@ public class AddPayment {
                             Payment p = response.body();
 
                             // Add payment to local database
-                            dbHandler.addPayment(p.getDate(), p.getAmount(), p.getSchool());
+                            dbHandler.addPayment(p.getDate(), p.getAmount(), p.getType(), p.getSchool());
                         } else {
                             Toast.makeText(c, c.getString(R.string.server_failure), Toast.LENGTH_SHORT).show();
                         }
