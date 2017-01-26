@@ -241,7 +241,8 @@ public class Home extends AppCompatActivity
             Intent i = new Intent(this, Messages.class);
             startActivity(i);
         } else if (id == R.id.nav_payments) {
-
+            Intent i = new Intent(this, Payments.class);
+            startActivity(i);
         } else if (id == R.id.nav_account) {
             Student student = dbHandler.getStudent();
 
