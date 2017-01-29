@@ -2,8 +2,11 @@ package com.stephnoutsa.cuib.utils;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -115,7 +118,7 @@ public class GetResults {
     }
 
     // Save results to device
-    private static void downloadResults(Context c, String year, String semester) {
+    private static void downloadResults(final Context c, String year, String semester) {
         if (results != null) {
             try {
                 /** Download the results if available*/
@@ -139,6 +142,17 @@ public class GetResults {
 
                 // Add download to queue
                 downloadManager.enqueue(request);
+
+                // Create broadcast receiver to perform action when download is complete
+                BroadcastReceiver onComplete = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        Toast.makeText(c, c.getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
+                    }
+                };
+
+                // Register the broadcast receiver
+                c.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             } catch (Exception e) {
                 e.printStackTrace();
             }

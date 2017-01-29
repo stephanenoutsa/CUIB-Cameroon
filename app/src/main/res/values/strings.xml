@@ -158,6 +158,7 @@
     <string name="tt_filename">timetable.png</string>
     <string name="download_text"><i>Click on the image to save it to your device</i></string>
     <string name="tt_content_desc">Timetable Image</string>
+    <string name="download_complete">Download complete</string>
     <string name="load_failed">Failed to load image</string>
     <string name="no_timetable">The requested resource is not available</string>
     <!-- End of Timetable activity literature -->
