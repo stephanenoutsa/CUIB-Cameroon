@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.stephnoutsa.cuib.utils.GetTimetable;
+
 public class Curriculum extends AppCompatActivity {
 
     @Override
@@ -18,8 +20,8 @@ public class Curriculum extends AppCompatActivity {
     }
 
     public void onClickTimetable(View view) {
-        Intent i = new Intent(this, Timetable.class);
-        startActivity(i);
+        // Download timetable directly
+        GetTimetable.getTimetable(this);
     }
 
     public void onClickCourses(View view) {
