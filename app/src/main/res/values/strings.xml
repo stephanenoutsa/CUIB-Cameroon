@@ -240,7 +240,7 @@
     <string name="invalid_mtn_number">Not an MTN number</string>
     <string name="momo_url">https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/</string>
     <string name="momo_amount">1</string>
-    <string name="momo_email">erncoolin@yahoo.com</string>
+    <string name="momo_email">stephanenoutsa@live.com</string>
     <string name="momo_pw">password</string>
     <string name="trans_failed">There was an error processing the transaction</string>
     <string name="retry_title">Retry</string>
