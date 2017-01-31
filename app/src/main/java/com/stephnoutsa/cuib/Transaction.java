@@ -22,6 +22,7 @@ import com.stephnoutsa.cuib.utils.RetrofitHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,6 +108,7 @@ public class Transaction extends AppCompatActivity {
                                             GetResults.getResults(context, year, semester, matricule);
 
                                             // Create Payment object
+                                            sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
                                             Date d = new Date();
                                             String date = sdf.format(d);
                                             Payment payment = new Payment(
@@ -134,6 +136,7 @@ public class Transaction extends AppCompatActivity {
                                     }
 
                                 } catch (Exception e) {
+                                    e.printStackTrace();
                                     Toast.makeText(context, getString(R.string.trans_failed), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
