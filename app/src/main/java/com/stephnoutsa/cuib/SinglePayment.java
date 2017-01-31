@@ -35,7 +35,8 @@ public class SinglePayment extends AppCompatActivity {
         payment = dbHandler.getPayment(id);
         String type = payment.getType();
         String date = payment.getDate();
-        String amount = payment.getAmount();
+        String amt = payment.getAmount();
+        String amount = amt + " " + getString(R.string.amount_suffix);
 
         typeLabel = (TextView) findViewById(R.id.typeLabel);
         typeLabel.setTypeface(font, Typeface.BOLD);
@@ -57,7 +58,6 @@ public class SinglePayment extends AppCompatActivity {
         amountField = (TextView) findViewById(R.id.amountField);
         amountField.setTypeface(font);
         amountField.setText(amount);
-        amountField.append(getString(R.string.amount_suffix));
     }
 
 }
