@@ -2,6 +2,7 @@
     <string name="app_name">CUIB-Cameroon</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="load_msg">Please wait &#8230;</string>
 
     <!-- Start of FlashScreen activity literature -->
     <string name="school_name"><b>Catholic University Institute of Buea</b></string>

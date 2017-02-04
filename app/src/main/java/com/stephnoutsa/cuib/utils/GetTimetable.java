@@ -1,6 +1,7 @@
 package com.stephnoutsa.cuib.utils;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class GetTimetable {
     static MyDBHandler dbHandler;
     static String timetable = null;
     private static DownloadManager downloadManager;
+    private static ProgressDialog progressDialog;
 
     public static void getTimetable(final Context c) {
         dbHandler = new MyDBHandler(c, null, null, 1);
@@ -42,6 +44,9 @@ public class GetTimetable {
         ConnectivityManager connMgr = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+            // Display Progress dialog
+            progressDialog = ProgressDialog.show(c, "", c.getString(R.string.load_msg), true);
+
             // Get student's details from database
             Student student = dbHandler.getStudent();
             final String department = student.getDepartment();
@@ -57,6 +62,9 @@ public class GetTimetable {
                 call.clone().enqueue(new Callback<Timetable>() {
                     @Override
                     public void onResponse(Call<com.stephnoutsa.cuib.models.Timetable> call, Response<Timetable> response) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         int statusCode = response.code();
                         if (statusCode == 200) {
                             com.stephnoutsa.cuib.models.Timetable t = response.body();
@@ -81,6 +89,9 @@ public class GetTimetable {
 
                     @Override
                     public void onFailure(Call<com.stephnoutsa.cuib.models.Timetable> call, Throwable t) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         Toast.makeText(c, c.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });

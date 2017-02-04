@@ -1,5 +1,6 @@
 package com.stephnoutsa.cuib;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -35,6 +36,7 @@ public class MyAccount extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+    ProgressDialog progressDialog;
     User newUser;
     TextView forSubscribed, emailLabel, phoneLabel, dobLabel, genderLabel, passwordLabel, confirmLabel;
     EditText emailField, phoneField, dobField, passwordField, confirmField;
@@ -86,8 +88,10 @@ public class MyAccount extends AppCompatActivity {
 
         passwordLabel = (TextView) findViewById(R.id.passwordLabel);
         passwordLabel.setTypeface(font);
+        passwordLabel.setVisibility(View.GONE);
 
         passwordField = (EditText) findViewById(R.id.passwordField);
+        passwordField.setVisibility(View.GONE);
 
         confirmLabel = (TextView) findViewById(R.id.confirmLabel);
         confirmLabel.setTypeface(font);
@@ -138,15 +142,15 @@ public class MyAccount extends AppCompatActivity {
                 dobField.setText(db);
                 gender = gdr;
                 switch (gdr) {
-                    case "male":
+                    case "Male":
                         male.setChecked(true);
                         break;
 
-                    case "female":
+                    case "Female":
                         female.setChecked(true);
                         break;
 
-                    case "other":
+                    case "Other":
                         other.setChecked(true);
                         break;
                 }
@@ -171,6 +175,8 @@ public class MyAccount extends AppCompatActivity {
                 confirmField.setText(pwd);
             }
         } else {
+            passwordLabel.setVisibility(View.VISIBLE);
+            passwordField.setVisibility(View.VISIBLE);
             confirmLabel.setVisibility(View.VISIBLE);
             confirmField.setVisibility(View.VISIBLE);
             updateAccount.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
@@ -187,15 +193,15 @@ public class MyAccount extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.maleGender:
                 if (checked)
-                    gender = "male";
+                    gender = "Male";
                 break;
             case R.id.femaleGender:
                 if (checked)
-                    gender = "female";
+                    gender = "Female";
                 break;
             case R.id.otherGender:
                 if (checked)
-                    gender = "other";
+                    gender = "Other";
                 break;
         }
     }
@@ -214,6 +220,9 @@ public class MyAccount extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
+                // Display Progress dialog
+                progressDialog = ProgressDialog.show(context, "", getString(R.string.load_msg), true);
+
                 User user = new User(email, phone, dob, gender, password, role);
 
                 subscribed = dbHandler.getSubscribed();
@@ -227,6 +236,9 @@ public class MyAccount extends AppCompatActivity {
                     check.clone().enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
+                            // Remove progress dialog
+                            progressDialog.dismiss();
+
                             int statusCode = response.code();
                             if (statusCode == 200) {
                                 User u = response.body();
@@ -258,6 +270,9 @@ public class MyAccount extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
+                            // Remove progress dialog
+                            progressDialog.dismiss();
+
                             Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -271,6 +286,9 @@ public class MyAccount extends AppCompatActivity {
                     check.clone().enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
+                            // Remove progress dialog
+                            progressDialog.dismiss();
+
                             int statusCode = response.code();
                             if (statusCode == 200) {
                                 User u = response.body();
@@ -315,6 +333,9 @@ public class MyAccount extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
+                            // Remove progress dialog
+                            progressDialog.dismiss();
+
                             Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                         }
                     });

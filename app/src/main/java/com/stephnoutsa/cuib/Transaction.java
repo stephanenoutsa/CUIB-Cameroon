@@ -1,5 +1,6 @@
 package com.stephnoutsa.cuib;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -9,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.stephnoutsa.cuib.models.MoMoResponse;
@@ -32,8 +32,8 @@ public class Transaction extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+    ProgressDialog progressDialog;
     SimpleDateFormat sdf;
-    ProgressBar progressBar;
     EditText phoneField;
     String year = "";
     String semester = "";
@@ -47,9 +47,6 @@ public class Transaction extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
 
         // Retrieve necessary information to access results
         year = getIntent().getExtras().getString("year");
@@ -68,8 +65,8 @@ public class Transaction extends AppCompatActivity {
             final ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                // Make progressBar visible
-                progressBar.setVisibility(View.VISIBLE);
+                // Display Progress dialog
+                progressDialog = ProgressDialog.show(context, "", getString(R.string.load_msg), true);
 
                 /** Try debiting student's MoMo account **/
                 RetrofitHandler retrofitHandler = new RetrofitHandler(getString(R.string.momo_url));
@@ -90,8 +87,8 @@ public class Transaction extends AppCompatActivity {
                     call.clone().enqueue(new Callback<MoMoResponse>() {
                         @Override
                         public void onResponse(Call<MoMoResponse> call, Response<MoMoResponse> response) {
-                            // Remove progressBar
-                            progressBar.setVisibility(View.GONE);
+                            // Remove progress dialog
+                            progressDialog.dismiss();
 
                             int statusCode = response.code();
                             if (statusCode == 200) {
@@ -146,8 +143,8 @@ public class Transaction extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<MoMoResponse> call, Throwable t) {
-                            // Remove progressBar
-                            progressBar.setVisibility(View.GONE);
+                            // Remove progress dialog
+                            progressDialog.dismiss();
 
                             Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                         }

@@ -1,5 +1,6 @@
 package com.stephnoutsa.cuib;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -31,6 +32,7 @@ public class StudentLogin extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+    ProgressDialog progressDialog;
     Student student, newStudent;
     TextView wrongCredentials, matriculeLabel, passwordLabel, forgotPassword;
     EditText matriculeField, passwordField;
@@ -78,6 +80,9 @@ public class StudentLogin extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
+                // Display Progress dialog
+                progressDialog = ProgressDialog.show(context, "", getString(R.string.load_msg), true);
+
                 // Hash password
                 String pwd = Hashing.sha256().hashString(password, Charset.forName("UTF-8")).toString();
 
@@ -92,6 +97,9 @@ public class StudentLogin extends AppCompatActivity {
                 check.clone().enqueue(new Callback<Student>() {
                     @Override
                     public void onResponse(Call<Student> call, Response<Student> response) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         int statusCode = response.code();
 
                         if (statusCode == 200) {
@@ -143,6 +151,9 @@ public class StudentLogin extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });

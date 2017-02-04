@@ -14,12 +14,6 @@
     tools:context="com.stephnoutsa.cuib.Transaction"
     tools:showIn="@layout/activity_transaction">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/progressBar" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/logo"

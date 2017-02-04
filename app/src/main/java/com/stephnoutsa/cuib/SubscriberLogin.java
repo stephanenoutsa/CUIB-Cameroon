@@ -1,5 +1,6 @@
 package com.stephnoutsa.cuib;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -31,6 +32,7 @@ public class SubscriberLogin extends AppCompatActivity {
 
     Context context = this;
     MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+    ProgressDialog progressDialog;
     User user, newUser;
     TextView wrongCredentials, emailLabel, passwordLabel, forgotPassword;
     EditText emailField, passwordField;
@@ -79,6 +81,9 @@ public class SubscriberLogin extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
+                // Display Progress dialog
+                progressDialog = ProgressDialog.show(context, "", getString(R.string.load_msg), true);
+
                 // Hash password
                 String pwd = Hashing.sha256().hashString(password, Charset.forName("UTF-8")).toString();
 
@@ -94,6 +99,9 @@ public class SubscriberLogin extends AppCompatActivity {
                 check.clone().enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         int statusCode = response.code();
 
                         if (statusCode == 200) {
@@ -102,7 +110,7 @@ public class SubscriberLogin extends AppCompatActivity {
                             String eml = newUser.getEmail();
                             String phn = newUser.getPhone();
                             String db = newUser.getPhone();
-                            String gdr = newUser.getPhone();
+                            String gdr = newUser.getGender();
                             String pw = newUser.getPassword();
                             String rl = newUser.getRole();
 
@@ -139,9 +147,14 @@ public class SubscriberLogin extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        // Remove progress dialog
+                        progressDialog.dismiss();
+
                         Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
+            } else {
+                Toast.makeText(context, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
             }
         }
     }
