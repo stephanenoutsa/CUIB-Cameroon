@@ -86,7 +86,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/forgot_password"
                 android:id="@+id/forgotPassword"
-                android:layout_gravity="end" />
+                android:layout_gravity="end"
+                android:visibility="gone" />
 
         </LinearLayout>
 
