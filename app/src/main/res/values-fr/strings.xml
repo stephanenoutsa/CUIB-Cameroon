@@ -1,0 +1,266 @@
+<resources>
+    <string name="app_name">CUIB-Cameroun</string>
+    <string name="yes">Oui</string>
+    <string name="cancel">Annuler</string>
+    <string name="load_msg">Veuillez patienter svp &#8230;</string>
+
+    <!-- Start of FlashScreen activity literature -->
+    <string name="school_name"><b>Institut Universitaire Catholique de Buea</b></string>
+    <string name="acronym">(IUCB)</string>
+    <string name="school_motto"><i>L\'Université Entrepreneuriale</i></string>
+    <!-- End of FlashScreen activity literature -->
+
+    <!-- Start of Home activity literature -->
+    <string name="title_activity_home">Acceuil</string>
+    <string name="icon_desc">Icone</string>
+    <string name="about_label">A Propos</string>
+    <string name="about_url">http://www.cuib-cameroon.org/home.php?m=2</string>
+    <string name="academics_label">Cursus</string>
+    <string name="academics_url">http://www.cuib-cameroon.org/home.php?m=3</string>
+    <string name="admission_label">Admission</string>
+    <string name="admission_url">http://www.cuib-cameroon.org/home.php?m=5</string>
+    <string name="enp_label">Innovation</string>
+    <string name="enp_url">http://www.cuib-cameroon.org/hpage.php?id=26</string>
+    <string name="campus_label">Vie en Campus</string>
+    <string name="campus_url">http://www.cuib-cameroon.org/home.php?m=4</string>
+    <string name="sports_label">Académie de Sports</string>
+    <string name="sports_url">http://www.cuib-cameroon.org/hpage.php?id=76</string>
+    <string name="partners_label">Nos Partenaires</string>
+    <string name="partners_url">http://www.cuib-cameroon.org/home.php?m=130</string>
+    <string name="donate_label">Donnez à CUIB</string>
+    <string name="donate_url">http://www.cuib-cameroon.org/home.php?m=128</string>
+    <string name="contact_label">Contact</string>
+    <string name="contact_url">http://www.cuib-cameroon.org/contacts.php</string>
+    <string name="exit_title">Quitter</string>
+    <string name="exit_message">Voulez-vous quitter l\'application?</string>
+    <!-- End of Home activity literature -->
+
+    <!-- Start of navigation drawer literature -->
+    <string name="navigation_drawer_open">Ouvrir le tiroir</string>
+    <string name="navigation_drawer_close">Fermer le tiroir</string>
+    <string name="nav_curriculum">Curriculum</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_payments">Paiements</string>
+    <string name="nav_account">Compte</string>
+    <!-- End of navigation drawer literature -->
+
+    <!-- Start of JoinUs activity literature -->
+    <string name="title_activity_join_us">Rejoignez-Nous</string>
+    <string name="login">Se Connecter</string>
+    <string name="signup">S\'Inscrire</string>
+    <string name="skip"><u>Sauter?</u></string>
+    <string name="skip_title">Avertissement</string>
+    <string name="skip_message" formatted="false">
+        Si vous êtes étudiant, vous ne pourrez pas avoir accès à vos informations personnelles (résultats,
+        emploi du temps, etc).\n
+        Continuer?
+    </string>
+    <!-- End of JoinUs activity literature -->
+
+    <!-- Start of SignUp activity literature -->
+    <string name="title_activity_sign_up">S\'Inscrire</string>
+    <string name="email_label"><b>Adresse Email:</b></string>
+    <string name="email_hint">Saisissez votre adresse</string>
+    <string name="phone_label"><b>Numéro de Téléphone:</b></string>
+    <string name="phone_hint">Saisissez votre numéro</string>
+    <string name="dob_label"><b>Date de Naissance:</b></string>
+    <string name="dob_hint">Saisissez la date</string>
+    <string name="gender_label"><b>Sexe:</b></string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Femelle</string>
+    <string name="gender_other">Autre</string>
+    <string name="password_label"><b>Mot de Passe:</b></string>
+    <string name="password_hint">8 caractères minimum</string>
+    <string name="confirm_label"><b>Confirmer Mot de Passe:</b></string>
+    <string name="confirm_hint">Confirmez le mot de passe</string>
+    <string name="create_account">Créer</string>
+    <string name="email_invalid">Adresse invalide</string>
+    <string name="phone_invalid">Numéro invalide</string>
+    <string name="dob_invalid">Date invalide</string>
+    <string name="gender_invalid">Vous devez choisir un sexe</string>
+    <string name="password_invalid">Mot de passe invalide</string>
+    <string name="confirm_invalid">Mots de passe différents</string>
+    <string name="user_role">Subscriber</string>
+    <string name="check_failed">Il y a eu une erreur. Veuillez réessayer plus tard.</string>
+    <string name="network_error">Impossible de joindre le serveur. Veuillez réessayer plus tard.</string>
+    <string name="user_exists" formatted="false">
+        Un compte avec ces même détails existe déjà. Veuillez vous connecter à ce compte là ou créez
+        un nouveau compte.
+    </string>
+    <string name="server_failure">La communication avec le serveur a été intérrompue. Veuillez réessayer plus tard.</string>
+    <string name="no_network">Veuillez vous connecter à l\'internet puis réessayer.</string>
+    <!-- End of SignUp activity literature -->
+
+    <!-- Start of LoginType activity literature -->
+    <string name="title_activity_login_type">Type de Connexion</string>
+    <string name="student_login">Connexion pour Etudiant</string>
+    <string name="subscriber_login">Connexion pour Utilisateur</string>
+    <string name="login_note" formatted="false">
+        <i>Vous ne devez faire ceci qu\'une seule fois.</i>
+    </string>
+    <!-- End of LoginType activity literature -->
+
+    <!-- Start of StudentLogin activity literature -->
+    <string name="title_activity_student_login">Connexion pour Etudiant</string>
+    <string name="matricule_label"><b>Matricule:</b></string>
+    <string name="matricule_hint">Saisissez votre matricule</string>
+    <string name="login_pw_hint">Saisissez votre mot de passe</string>
+    <string name="forgot_password"><u>Mot de passe oublié?</u></string>
+    <string name="empty_field">Ce champ ne peut pas être vide</string>
+    <string name="student_wrong_credentials">Matricule ou mot de passe incorrect</string>
+    <!-- End of StudentLogin activity literature -->
+
+    <!-- Start of SubscriberLogin activity literature -->
+    <string name="title_activity_subscriber_login">Connexion pour Utilisateur</string>
+    <string name="user_wrong_credentials">Email ou mot de passe incorrect</string>
+    <!-- End of SubscriberLogin activity literature -->
+
+    <!-- Start of MyAccount activity literature -->
+    <string name="title_activity_my_account">Compte Utilisateur</string>
+    <string name="update">Mettre à Jour</string>
+    <string name="user_added">Compte créé</string>
+    <string name="user_updated">Compte mis à jour</string>
+    <string name="already_subscribed">Cliquez <u>ici</u> si vous avez déjà un compte.</string>
+    <!-- End of MyAccount activity literature -->
+
+    <!-- Start of StudentAccount activity literature -->
+    <string name="title_activity_student_account">Compte Etudiant</string>
+    <string name="logout_label"><u>Déconnexion</u></string>
+    <string name="name_label"><b>Nom:</b></string>
+    <string name="name_field">Nom de l\'étudiant</string>
+    <string name="matricule_field">Matricule de l\'étudiant</string>
+    <string name="enrolled_label"><b>Année d\'Inscription:</b></string>
+    <string name="enrolled_field">Année d\'inscription de l\'étudiant</string>
+    <string name="level_label"><b>Niveau:</b></string>
+    <string name="level_field">Niveau de l\'étudiant</string>
+    <string name="school_label"><b>Ecole:</b></string>
+    <string name="school_field">Ecole de l\'étudiant</string>
+    <string name="dept_label"><b>Département:</b></string>
+    <string name="dept_field">Département de l\'étudiant</string>
+    <string name="email_field">Email de l\'étudiant</string>
+    <string name="phone_field">Numéro de l\'étudiant</string>
+    <string name="logout_title">Déconnexion</string>
+    <string name="logout_message">Voulez-vous vraiment vous déconnecter?</string>
+    <!-- End of StudentAccount activity literature -->
+
+    <!-- Start of Curriculum activity literature -->
+    <string name="title_activity_curriculum">Curriculum</string>
+    <string name="not_student">Vous devez être connecté en tant qu\'étudiant pour accéder à cette page!</string>
+    <string name="btn_timetable">Mon Emploi du Temps</string>
+    <string name="btn_courses">Mes Matières</string>
+    <string name="btn_lecturers">Mes Professeurs</string>
+    <string name="btn_results">Mes Résultats</string>
+    <!-- End of Curriculum activity literature -->
+
+    <!-- Start of Timetable activity literature -->
+    <string name="title_activity_timetable">Emploi du Temps</string>
+    <string name="tt_download_title">Emploi du Temps</string>
+    <string name="tt_download_desc">Téléchargement en cours</string>
+    <string name="tt_filename">emploi-du-temps.png</string>
+    <string name="download_text"><i>Cliquez sur l\'image pour l\'enrégistrer dans votre appareil.</i></string>
+    <string name="tt_content_desc">Image Emploi du Temps</string>
+    <string name="download_complete">Téléchargement Terminé</string>
+    <string name="load_failed">Impossible d\'ouvrir l\'image</string>
+    <string name="no_timetable">Emploi du temps indisponible.</string>
+    <!-- End of Timetable activity literature -->
+
+    <!-- Start of Courses activity literature -->
+    <string name="title_activity_courses">Matières</string>
+    <string name="no_courses">Liste des matières indisponible.</string>
+    <string name="course_code_placeholder">Code de Matière</string>
+    <string name="course_title_placeholder">Titre de Matière</string>
+    <string name="course_desc_placeholder">Description de Matière</string>
+    <!-- End of Courses activity literature -->
+
+    <!-- Start of Lecturers activity literature -->
+    <string name="title_activity_lecturers">Professeurs</string>
+    <string name="no_lecturers">Liste des professeurs indisponible.</string>
+    <string name="lect_name_placeholder"><b>Nom du Professeur</b></string>
+    <string name="lect_bio_placeholder">A Propos du Professeur</string>
+    <!-- End of Lecturers activity literature -->
+
+    <!-- Start of Messages activity literature -->
+    <string name="title_activity_messages">Messages</string>
+    <string name="msg_summary">Nouveaux Messages</string>
+    <string name="msg_sender_placeholder"><i>Catholic University Institute of Buea</i></string>
+    <string name="msg_title_placeholder"><b>Titre Temporaire</b></string>
+    <string name="msg_time_placeholder">24/11/2016 15:02 PM</string>
+    <string name="msg_body_placeholder">Ceci n\'est qu\'un message temporaire.</string>
+    <string name="no_messages">Vous n\'avez aucun message</string>
+    <string name="delete_title">Supprimer</string>
+    <string name="delete_msg">Vous êtes sur le point de supprimer ce message.</string>
+    <string name="delete_ok">OK</string>
+    <string name="delete_cancel">Annuler</string>
+    <string name="token_saved">Token enrégistré avec succès.</string>
+    <!-- End of Messages activity literature -->
+
+    <!-- Start of SingleMessage activity literature -->
+    <string name="title_activity_single_message">Message</string>
+    <!-- End of SingleMessage activity literature -->
+
+    <!-- Start of URLDisplay activity literature -->
+    <string name="title_activity_urldisplay">CUIB</string>
+    <!-- End of URLDisplay activity literature -->
+
+    <!-- Start of SingleCourse activity literature -->
+    <string name="title_activity_single_course">Matière</string>
+    <!-- End of SingleCourse activity literature -->
+
+    <!-- Start of SingleLecturer activity literature -->
+    <string name="title_activity_single_lecturer">Professeur</string>
+    <!-- End of SingleLecturer activity literature -->
+
+    <!-- Start of Results activity literature -->
+    <string name="title_activity_results">Résultats</string>
+    <string name="select_results"><b>Choisissez les résultats à télécharger</b></string>
+    <string name="year_label">Année Académique:</string>
+    <string name="year_hint">ex. 2016/2017</string>
+    <string name="semester_label">Semestre:</string>
+    <string-array name="semester_options">
+        <item>1</item>
+        <item>2</item>
+        <item>Resit</item>
+    </string-array>
+    <string name="get_results">Télécharger Résultats</string>
+    <string name="invalid_year">Année invalide</string>
+    <string name="rs_download_title">Resultats</string>
+    <string name="rs_download_desc">Téléchargement en cours</string>
+    <string name="rs_filename">resultats</string>
+    <string name="not_found">Les résultats n\'ont pas été trouvé.</string>
+    <string name="no_results">Les résultats sont indisponibles.</string>
+    <!-- End of Results activity literature -->
+
+    <!-- Start of Transaction activity literature -->
+    <string name="title_activity_transaction">Transaction</string>
+    <string name="enter_phone" formatted="false">
+        Pour télécharger vos résultats, veuillez saisir votre numéro de téléphone MTN ci-dessous.\n
+        (Des frais de 600FCFA seront déduits de votre compte Mobile Money)
+    </string>
+    <string name="mtn_hint">ex. <b>67</b>0000000</string>
+    <string name="pay">Payer</string>
+    <string name="invalid_mtn_number">Pas un numéro MTN</string>
+    <string name="momo_url">https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/</string>
+    <string name="momo_amount">1</string>
+    <string name="momo_email">stephanenoutsa@live.com</string>
+    <string name="momo_pw">password</string>
+    <string name="trans_failed">Il y a eu une erreur avec votre requette.</string>
+    <string name="retry_title">Réessayer</string>
+    <string name="retry_msg">Réessayer de télécharger vos résultats?</string>
+    <!-- End of Transaction activity literature -->
+
+    <!-- Start of Payments activity literature -->
+    <string name="title_activity_payments">Paiements</string>
+    <string name="no_payments">Historique de paiements vide</string>
+    <string name="delete_payment">Vous êtes sur le point de supprimer cette transaction.</string>
+    <string name="type_momo">MTN Mobile Money</string>
+    <string name="type_om">Orange Money</string>
+    <!-- End of Payments activity literature -->
+
+    <!-- Start of SinglePayment activity literature -->
+    <string name="title_activity_single_payment">Paiement</string>
+    <string name="type_label"><b>Type:</b></string>
+    <string name="date_label"><b>Date:</b></string>
+    <string name="amount_label"><b>Montant:</b></string>
+    <string name="amount_suffix">FCFA</string>
+    <!-- End of SinglePayment activity literature -->
+</resources>
