@@ -4,9 +4,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -20,7 +19,6 @@ import com.stephnoutsa.cuib.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by stephnoutsa on 11/23/16.
@@ -31,7 +29,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     NotificationCompat.Builder notification;
     SimpleDateFormat sdf;
     Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-    String NOTIFICATION_GROUP = "Messages";
+    private static final String NOTIFICATION_GROUP = "Messages";
+    private static final int NOTIFICATION_GROUP_SUMMARY_ID = 1;
+    private static int notificationID = 2;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -49,8 +49,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             date.setTime(lTime);
         }
         String time = sdf.format(date);
-        /*String title = remoteMessage.getNotification().getTitle();
-        String message = remoteMessage.getNotification().getBody();*/
         String title = remoteMessage.getData().get("title");
         String message = remoteMessage.getData().get("body");
         String ticker = trimText(message);
@@ -60,7 +58,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notification.setColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
         notification.setContentTitle(title);
         notification.setSound(alarmSound);
+        notification.setGroupSummary(false);
         notification.setGroup(NOTIFICATION_GROUP); // Used to group notifications
+
         Intent i = new Intent(this, Messages.class);
 
         // Preserve navigation when launching Messages activity
@@ -77,33 +77,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notification.setContentIntent(pendingIntent);
 
         // Issue the notification
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Random r = new Random();
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notification.setTicker(ticker); // Sets the text displayed in app bar when notification is received
         notification.setWhen(System.currentTimeMillis());
         notification.setContentText(message);
-        int rand = r.nextInt(1000);
-        nm.notify(rand, notification.build());
+        nm.notify(notificationID, notification.build());
+        notificationID++;
 
         // Add the message to the database
         dbHandler.addMessage(sender, time, title, message);
 
         // Create the summary notification
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
         Notification summary = new NotificationCompat.Builder(this)
-                .setContentTitle(getString(R.string.msg_summary))
+                .setContentTitle(getString(R.string.app_name))
                 .setSmallIcon(R.drawable.logo)
-                .setLargeIcon(largeIcon)
                 .setColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .setStyle(new NotificationCompat.InboxStyle()
-                        .setBigContentTitle(getString(R.string.msg_summary))
-                        .setSummaryText(getString(R.string.app_name)))
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .setSummaryText(getString(R.string.msg_summary)))
                 .setGroup(NOTIFICATION_GROUP)
                 .setGroupSummary(true)
                 .build();
 
-        nm.notify(1, summary);
+        nm.notify(NOTIFICATION_GROUP_SUMMARY_ID, summary);
     }
 
     // Trim notification ticker text
