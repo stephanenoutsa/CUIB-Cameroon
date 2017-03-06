@@ -22,14 +22,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:design:25.1.1'
 
     // Add the Circular ImageView library dependency files
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     // Add the GSON library dependency files
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.code.gson:gson:2.7'
 
     // Add the Retrofit Framework dependency files
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -48,6 +48,7 @@ dependencies {
 
     // Add Guava dependency for hashing
     compile 'com.google.guava:guava:20.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 }
 
 apply plugin: 'com.google.gms.google-services'
