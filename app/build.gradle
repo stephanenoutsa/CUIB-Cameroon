@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         applicationId "com.stephnoutsa.cuib"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -21,9 +22,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+
+    compile "com.android.support:support-core-utils:26.0.0-beta2"
+
+    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
+    compile 'com.android.support:design:26.0.0-beta2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.android.support:support-vector-drawable:26.0.0-beta2'
 
     // Add the Circular ImageView library dependency files
     compile 'de.hdodenhof:circleimageview:2.1.0'
@@ -44,11 +49,12 @@ dependencies {
     compile 'com.google.firebase:firebase-appindexing:10.0.0'
 
     // Add Mockito dependencies for testing
+    testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     // Add Guava dependency for hashing
     compile 'com.google.guava:guava:20.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
